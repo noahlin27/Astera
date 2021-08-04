@@ -1,0 +1,11 @@
+# datasource
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mariadb://localhost:3306/blog4u_db?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+
+# mybatis
+#mybatis:
+#  mapper-locations: classpath:mapper/*DAO.xml
