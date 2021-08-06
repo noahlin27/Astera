@@ -11,22 +11,35 @@
         <result property="isDeleted" column="is_deleted"/>
     </resultMap>
 
-    <select id="findAllUsers" resultMap="UserResult">
-        select * from demo_user
+    <sql id="TABLE_NAME">
+        user
+    </sql>
+    <sql id="INSERT_FIELDS">
+        name, password, salt, head_url, is_deleted
+    </sql>
+    <sql id="SELECT_FIELDS">
+        id, name, password, salt, head_url, is_deleted
+    </sql>
+
+<!--    <insert id="insertUser" parameterType="top.noahlin.blog4u.model.User">-->
+<!--        insert into demo_user(name, password, salt, headUrl, isDeleted)-->
+<!--        values (#{ame}, #{password}, #{salt}, #{head_url}, #{is_deleted})-->
+<!--    </insert>-->
+
+    <select id="selectById" resultMap="UserResult">
+        select
+        <include refid="SELECT_FIELDS"></include>
+        from
+        <include refid="TABLE_NAME"></include>
     </select>
 
-    <insert id="insertUser" parameterType="top.noahlin.blog4u.model.User">
-        insert into demo_user(name, password, salt, headUrl, isDeleted)
-        values (#{ame}, #{password}, #{salt}, #{head_url}, #{is_deleted})
-    </insert>
+<!--    <update id="updUser" parameterType="top.noahlin.blog4u.model.User">-->
+<!--        update demo_user-->
+<!--        set name=#{name}, password=#{password},  salt=#{salt}, headUrl=#{head_url}, isDeleted#{is_deleted}-->
+<!--        where id=#{id}-->
+<!--    </update>-->
 
-    <update id="updUser" parameterType="top.noahlin.blog4u.model.User">
-        update demo_user
-        set name=#{name}, password=#{password},  salt=#{salt}, headUrl=#{head_url}, isDeleted#{is_deleted}
-        where id=#{id}
-    </update>
-
-    <delete id="delUser" parameterType="int">
-        delete from demo_user where id=#{id}
-    </delete>
+<!--    <delete id="delUser" parameterType="int">-->
+<!--        delete from demo_user where id=#{id}-->
+<!--    </delete>-->
 </mapper>

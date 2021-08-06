@@ -7,5 +7,7 @@ spring:
     url: jdbc:mariadb://localhost:3306/blog4u_db?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
 
 # mybatis
-#mybatis:
+mybatis:
 #  mapper-locations: classpath:mapper/*DAO.xml
+  configuration:
+    map-underscore-to-camel-case: true

@@ -33,5 +33,15 @@ public class InitDatabaseTests {
             user.setIsDeleted(0);
             userDAO.addUser(user);
         }
+
+        User user = new User();
+        user.setId(random.nextInt(11) + 1);
+        user.setPassword("password");
+        userDAO.updatePassword(user);
+        userDAO.deleteById(random.nextInt(11) + 1);
+
+        for (int i = 0; i < 11; ++i) {
+            System.out.println(userDAO.selectById(i + 1));
+        }
     }
 }
