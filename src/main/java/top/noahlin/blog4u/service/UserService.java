@@ -1,6 +1,5 @@
 package top.noahlin.blog4u.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.noahlin.blog4u.dao.UserDAO;
 import top.noahlin.blog4u.model.User;
