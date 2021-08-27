@@ -4,10 +4,10 @@ CREATE TABLE `question` (
   `title` VARCHAR(255) NOT NULL,
   `content` TEXT NULL,
   `user_id` INT NOT NULL,
-  `created_date` DATETIME NOT NULL,
+  `create_time` DATETIME NOT NULL,
   `comment_count` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `date_index` (`created_date` ASC));
+  INDEX `date_index` (`create_time` ASC));
 
   DROP TABLE IF EXISTS `user`;
   CREATE TABLE `user` (
@@ -39,7 +39,7 @@ CREATE TABLE `question` (
   `user_id` INT NOT NULL,
   `entity_id` INT NOT NULL,
   `entity_type` INT NOT NULL,
-  `created_date` DATETIME NOT NULL,
+  `create_time` DATETIME NOT NULL,
   `status` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `entity_index` (`entity_id` ASC, `entity_type` ASC)
@@ -51,19 +51,19 @@ CREATE TABLE `question` (
     `from_id` INT NULL,
     `to_id` INT NULL,
     `content` TEXT NULL,
-    `created_date` DATETIME NULL,
+    `create_time` DATETIME NULL,
     `has_read` INT NULL,
     `conversation_id` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `conversation_index` (`conversation_id` ASC),
-    INDEX `created_date` (`created_date` ASC))
+    INDEX `create_time` (`create_time` ASC))
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8;
 
   DROP TABLE IF EXISTS `feed`;
   CREATE TABLE `feed` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `created_date` DATETIME NULL,
+    `create_time` DATETIME NULL,
     `user_id` INT NULL,
     `data` TINYTEXT NULL,
     `type` INT NULL,

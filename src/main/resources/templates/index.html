@@ -46,8 +46,8 @@
                                     <meta itemprop="answer-url-token" content="13174385">
                                     <h2 class="feed-title">
                                         <a class="question_link" target="_blank"
-                                           th:href="@{'/question/'+${vo.get('news').id}}"
-                                           th:text="${vo.get('news').title}">
+                                           th:href="@{'/question/'+${vo.get('question').id}}"
+                                           th:text="${vo.get('question').title}">
                                         </a>
                                     </h2>
                                     <div class="feed-question-detail-item">
@@ -57,7 +57,7 @@
                                         <div class="zm-item-vote">
                                             <a class="zm-item-vote-count js-expand js-vote-count"
                                                href="javascript:;" data-bind-votecount=""
-                                               th:text="${vo.get('news').likeCount}">
+                                               th:text="${vo.get('question').id}">
                                             </a>
                                         </div>
                                         <div class="zm-item-answer-author-info">
@@ -65,7 +65,7 @@
                                                th:href="@{'/user/'+${vo.get('user').id}}"
                                                th:text="${vo.get('user').name}">
                                             </a>
-                                            <span th:text="'，'+${#dates.format(vo.get('news').createTime,
+                                            <span th:text="'，'+${#dates.format(vo.get('question').createTime,
                                                           'yyyy-MM-dd HH:mm:ss')}">
                                             </span>
                                             </div>
@@ -81,7 +81,7 @@
                                              data-resourceid="123114" data-action="/answer/content"
                                              data-author-name="李淼"
                                              data-entry-url="/question/19857995/answer/13174385">
-                                            <div class="zh-summary summary clearfix" th:text="${vo.get('news').link}">
+                                            <div class="zh-summary summary clearfix" th:text="${vo.get('question').content}">
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
                                                 </a>
                                                 <a href="#" id="addcomment"
                                                    class="meta-item toggle-comment js-toggleCommentBox"
-                                                   th:text="|${vo.get('news').commentCount} 条评论|">
+                                                   th:text="|${vo.get('question').commentCount} 条评论|">
                                                     <i class="z-icon-comment"></i>
                                                 </a>
                                                 <button class="meta-item item-collapse js-collapse">

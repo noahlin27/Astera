@@ -1,4 +1,6 @@
-# datasource
+server:
+  port: 2021
+
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -6,8 +8,12 @@ spring:
     password: 123456
     url: jdbc:mariadb://localhost:3306/blog4u_db?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
 
-# mybatis
+  thymeleaf:
+    cache: false
+
 mybatis:
-#  mapper-locations: classpath:mapper/*DAO.xml
+  mapper-locations: classpath:mapper/*DAO.xml
   configuration:
     map-underscore-to-camel-case: true
+
+

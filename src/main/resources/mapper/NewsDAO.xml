@@ -6,13 +6,13 @@
     <sql id="TABLE_NAME">news</sql>
     <sql id="SELECT_FIELDS">id
     , title, link, image, like_count, comment_count, create_time, user_id</sql>
-    <sql id="INSERT_FIeLDS">title
+    <sql id="INSERT_FIELDS">title
     , link, image, like_count, comment_count, create_time, user_id</sql>
 
     <insert id="addNews" parameterType="top.noahlin.blog4u.model.User">
         INSERT into
         <include refid="TABLE_NAME"></include>
-        (<include refid="INSERT_FIeLDS"></include>)
+        (<include refid="INSERT_FIELDS"></include>)
         values (#{title}, #{link}, #{image}, #{likeCount}, #{commentCount}, #{createTime}, #{userId})
     </insert>
 

@@ -11,7 +11,7 @@ public class UserService {
     @Resource
     private UserDAO userDAO;
 
-    public User getUser(int id){
+    public User getUser(int id) {
         return userDAO.selectById(id);
     }
 }
