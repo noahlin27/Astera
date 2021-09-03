@@ -1,7 +1,7 @@
-package top.noahlin.blog4u.dao;
+package top.noahlin.astera.dao;
 
 import org.apache.ibatis.annotations.*;
-import top.noahlin.blog4u.model.User;
+import top.noahlin.astera.model.User;
 
 public interface UserDAO {
     String TABLE_NAME = "user";
@@ -13,6 +13,9 @@ public interface UserDAO {
 
     @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where id=#{id}"})
     User selectById(int id);
+
+    @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where name=#{name}"})
+    User selectByName(String username);
 
     @Update({"update", TABLE_NAME, "set password=#{password} where id=#{id}"})
     void updatePassword(User user);

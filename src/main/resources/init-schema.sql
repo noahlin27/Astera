@@ -57,8 +57,7 @@ CREATE TABLE `question` (
     PRIMARY KEY (`id`),
     INDEX `conversation_index` (`conversation_id` ASC),
     INDEX `create_time` (`create_time` ASC))
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
   DROP TABLE IF EXISTS `feed`;
   CREATE TABLE `feed` (
@@ -69,5 +68,4 @@ CREATE TABLE `question` (
     `type` INT NULL,
     PRIMARY KEY (`id`),
     INDEX `user_index` (`user_id` ASC))
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;

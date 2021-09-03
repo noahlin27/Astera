@@ -1,13 +1,13 @@
-package top.noahlin.blog4u.controller;
+package top.noahlin.astera.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import top.noahlin.blog4u.model.Question;
-import top.noahlin.blog4u.model.ViewObject;
-import top.noahlin.blog4u.service.QuestionService;
-import top.noahlin.blog4u.service.UserService;
+import top.noahlin.astera.model.Question;
+import top.noahlin.astera.model.ViewObject;
+import top.noahlin.astera.service.QuestionService;
+import top.noahlin.astera.service.UserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,21 +24,21 @@ public class IndexController {
 
     @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(HttpServletRequest request) {
-        List<Question> questionList = questionService.getLatestQuestion(0, 0, 10);
-        List<ViewObject> vos = new ArrayList<>();
-        for (Question question : questionList) {
-            ViewObject vo = new ViewObject();
-            vo.set("question", question);
-            vo.set("user", userService.getUser(question.getUserId()));
-            vos.add(vo);
-        }
-        request.setAttribute("vos", vos);
-        request.setAttribute("user", vos.get(0).get("user"));
+        request.setAttribute("vos", getQuestions(0));
+
+//        request.setAttribute("user", getQuestions(0).get(0).get("user")); //待修改
+
         return "index";
     }
 
-    @RequestMapping(value = "/user/{userId}", method = {RequestMethod.GET, RequestMethod.POST})
-    public String userIndex(HttpServletRequest request, @PathVariable("userId") int userId){
+    @RequestMapping(value = "/user/{username}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String userIndex(HttpServletRequest request, @PathVariable("username") String username){
+        request.setAttribute("vos", getQuestions(userService.getUser(username).getId()));
+//        request.setAttribute("user", userService.getUser(username));
+        return "index";
+    }
+
+    public List<ViewObject> getQuestions(int userId){
         List<Question> questionList = questionService.getLatestQuestion(userId, 0, 10);
         List<ViewObject> vos = new ArrayList<>();
         for (Question question : questionList) {
@@ -47,8 +47,6 @@ public class IndexController {
             vo.set("user", userService.getUser(question.getUserId()));
             vos.add(vo);
         }
-        request.setAttribute("vos", vos);
-        request.setAttribute("user", vos.get(0).get("user"));
-        return "index";
+        return vos;
     }
 }

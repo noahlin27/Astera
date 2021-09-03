@@ -1,11 +1,10 @@
-package top.noahlin.blog4u.dao;
+package top.noahlin.astera.dao;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import top.noahlin.blog4u.model.Question;
-import top.noahlin.blog4u.model.User;
+import top.noahlin.astera.model.Question;
+import top.noahlin.astera.model.User;
 
 import java.util.List;
 

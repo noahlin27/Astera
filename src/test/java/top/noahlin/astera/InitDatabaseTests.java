@@ -1,35 +1,35 @@
-package top.noahlin.blog4u;
+package top.noahlin.astera;
 
 import org.junit.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-import top.noahlin.blog4u.dao.NewsDAO;
-import top.noahlin.blog4u.dao.QuestionDAO;
-import top.noahlin.blog4u.dao.UserDAO;
-import top.noahlin.blog4u.model.News;
-import top.noahlin.blog4u.model.Question;
-import top.noahlin.blog4u.model.User;
+import top.noahlin.astera.dao.LoginTicketDAO;
+import top.noahlin.astera.dao.QuestionDAO;
+import top.noahlin.astera.dao.UserDAO;
+import top.noahlin.astera.model.LoginTicket;
+import top.noahlin.astera.model.Question;
+import top.noahlin.astera.model.User;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Blog4uApplication.class)
 //@Sql("/init-schema.sql")
-@MapperScan({"top.noahlin.blog4u.dao"})
+@MapperScan({"top.noahlin.astera.dao"})
 public class InitDatabaseTests {
     @Resource
     UserDAO userDAO;
 
     @Resource
-    NewsDAO newsDAO;
+    QuestionDAO questionDAO;
 
     @Resource
-    QuestionDAO questionDAO;
+    LoginTicketDAO loginTicketDAO;
 
     @Test
     public void AddUserTest() {
@@ -59,23 +59,6 @@ public class InitDatabaseTests {
     }
 
     @Test
-    public void NewsTests() {
-        for (int i = 0; i < 10; ++i) {
-            News news = new News();
-            news.setCommentCount(i);
-            Date date = new Date();
-            date.setTime(date.getTime() + 1000 * 3600 * 5 * i);
-            news.setCreateTime(date);
-            news.setImage(String.format("https://images.nowcoder.com/head/%dt.png", i));
-            news.setLikeCount(i);
-            news.setUserId(i);
-            news.setTitle(String.format("TITLE{%d}", i));
-            news.setLink("https://noahlin27.top");
-            newsDAO.addNews(news);
-        }
-    }
-
-    @Test
     public void AddQuestionTest() {
         Random random = new Random();
         for (int i = 0; i < 10; ++i) {
@@ -95,5 +78,16 @@ public class InitDatabaseTests {
     public void SelectQuestionTest(){
         for (Question question : questionDAO.selectLatestQuestions(0, 0, 10))
             System.out.println(question.toString());
+    }
+
+    @Test
+    public void addLoginTicketTest(){
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(1);
+        loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));
+        Date now = new Date();
+        now.setTime(now.getTime()+3600);
+        loginTicket.setExpired(now);
+        loginTicketDAO.addLoginTicket(loginTicket);
     }
 }

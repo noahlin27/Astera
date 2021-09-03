@@ -1,4 +1,4 @@
-package top.noahlin.blog4u.controller;
+package top.noahlin.astera.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class ThymeleafController {
+public class ThymeleafTestController {
 
     @GetMapping("/thymeleaf")
     public String hello(HttpServletRequest request, @RequestParam(value = "description", required = false, defaultValue = "Spring Boot Thymeleaf") String description) {
         request.setAttribute("description", "传值为: " + description);
-        return "thymeleaf";     //默认目录是template
+        return "thymeleaf_tests/thymeleaf";     //默认目录是template
     }
 
     @GetMapping("/attributes")
@@ -26,14 +26,14 @@ public class ThymeleafController {
         request.setAttribute("th_name", "th name");
         request.setAttribute("th_value", "noahlin");
         request.setAttribute("th_href", "https://noahlin.top");
-        return "th_attribute";
+        return "thymeleaf_tests/th_attribute";
     }
 
     @GetMapping("/syntax")
     public String syntax(HttpServletRequest request){
         request.setAttribute("thymeleafText", "Laconia");
         request.setAttribute("number", 2021);
-        return "th_syntax";
+        return "thymeleaf_tests/th_syntax";
     }
 
     @GetMapping("/test")
@@ -49,6 +49,6 @@ public class ThymeleafController {
         testMap.put("author", "noahlin");
         request.setAttribute("testMap", testMap);
         request.setAttribute("testDate", new Date());
-        return "th_test";
+        return "thymeleaf_tests/th_test";
     }
 }

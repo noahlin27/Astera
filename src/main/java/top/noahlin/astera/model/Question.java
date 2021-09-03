@@ -1,4 +1,4 @@
-package top.noahlin.blog4u.model;
+package top.noahlin.astera.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

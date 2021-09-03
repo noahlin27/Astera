@@ -1,4 +1,4 @@
-package top.noahlin.blog4u.model;
+package top.noahlin.astera.model;
 
 import java.util.HashMap;
 import java.util.Map;

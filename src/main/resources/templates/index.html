@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<header th:replace="header::header-fragment"></header>
+<html xmlns:th="http://www.thymeleaf.org" dropeffect="none" style=""
+      class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
+<head th:replace="header::head-fragment"></head>
 <body class="zhi">
 <div th:replace="header::header-nav(${user})"></div>
 <link rel="stylesheet" href="../styles/index.css">
@@ -12,9 +13,9 @@
                 <i class="zg-icon zg-icon-feedlist"></i>最新动态
                 <input type="hidden" id="is-topstory">
                 <span class="zg-right zm-noti-cleaner-setting" style="list-style:none">
-                    <a href="https://nowcoder.com/settings/filter" class="zg-link-gray-normal">
-                        <i class="zg-icon zg-icon-settings"></i>设置
-                    </a>
+<!--                    <a th:href="@{'/user/'+${user.name}}" class="zg-link-gray-normal">-->
+<!--                        <i class="zg-icon zg-icon-settings"></i>设置-->
+<!--                    </a>-->
                 </span>
             </div>
             <div class="zu-main-feed-con navigable" data-feedtype="topstory" id="zh-question-list"
@@ -36,7 +37,7 @@
                         <div class="feed-item-inner">
                             <div class="avatar">
                                 <a th:title="${vo.get('user').name}" data-tip="p$t$amuro1230"
-                                   class="zm-item-link-avatar" target="_blank" href="https://nowcoder.com">
+                                   class="zm-item-link-avatar" target="_blank" th:href="@{'/user/'+${vo.get('user').name}}">
                                     <img th:src="${vo.get('user').headUrl}" class="zm-item-img-avatar">
                                 </a>
                             </div>
@@ -62,7 +63,7 @@
                                         </div>
                                         <div class="zm-item-answer-author-info">
                                             <a class="author-link" data-tip="p$b$amuro1230" target="_blank"
-                                               th:href="@{'/user/'+${vo.get('user').id}}"
+                                               th:href="@{'/user/'+${vo.get('user').name}}"
                                                th:text="${vo.get('user').name}">
                                             </a>
                                             <span th:text="'，'+${#dates.format(vo.get('question').createTime,
@@ -117,6 +118,6 @@
 </div>
 <div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
-<!--<div th:replace="footer/footer-fragment"></div>-->
+<div th:replace="footer::footer-fragment"></div>
 </body>
 </html>

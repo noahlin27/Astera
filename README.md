@@ -1,4 +1,5 @@
-# blog4u
-blog4u project for Spring Boot  
-### [more about blog4u](https://blog.csdn.net/noahlin27)
+# Astera
+Astera project for Spring Boot  
+Astera is basically an online Q&A community  
+####[more about Astera](https://blog.csdn.net/noahlin27)
 
