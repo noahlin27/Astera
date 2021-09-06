@@ -11,6 +11,7 @@ import top.noahlin.astera.dao.UserDAO;
 import top.noahlin.astera.model.LoginTicket;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.User;
+import top.noahlin.astera.util.MD5Util;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -59,6 +60,17 @@ public class InitDatabaseTests {
     }
 
     @Test
+    public void SetUserPassword() {
+        for (int i = 1; i <= 10; ++i) {
+            User user = new User();
+            user.setSalt(UUID.randomUUID().toString().substring(0, 5));
+            user.setId(i);
+            user.setPassword(MD5Util.Encode("123456" + user.getSalt(), "utf-8"));
+            userDAO.updatePassword(user);
+        }
+    }
+
+    @Test
     public void AddQuestionTest() {
         Random random = new Random();
         for (int i = 0; i < 10; ++i) {
@@ -75,18 +87,18 @@ public class InitDatabaseTests {
     }
 
     @Test
-    public void SelectQuestionTest(){
+    public void SelectQuestionTest() {
         for (Question question : questionDAO.selectLatestQuestions(0, 0, 10))
             System.out.println(question.toString());
     }
 
     @Test
-    public void addLoginTicketTest(){
+    public void addLoginTicketTest() {
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(1);
-        loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));
+        loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
         Date now = new Date();
-        now.setTime(now.getTime()+3600);
+        now.setTime(now.getTime() + 3600);
         loginTicket.setExpired(now);
         loginTicketDAO.addLoginTicket(loginTicket);
     }

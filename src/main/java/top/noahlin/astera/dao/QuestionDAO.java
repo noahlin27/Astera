@@ -14,15 +14,15 @@ public interface QuestionDAO {
     String SELECT_FIELDS = "id, " + INSERT_FIELDS;
 
     @Insert({"insert into", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{title}, #{content}, #{createTime}, #{userId}, #{commentCount})"})
-    int addQuestion(Question question);
+    void addQuestion(Question question);
 
     List<Question> selectLatestQuestions(@Param("userId") int userId,
                                          @Param("offset") int offset,
                                          @Param("limit") int limit);
 
-    @Update({"update", TABLE_NAME, "set password=#{password} where id=#{id}"})
-    void updatePassword(User user);
-
-    @Update({"update", TABLE_NAME, "set is_deleted=1 where id=#{id}"})
-    void deleteById(int id);
+//    @Update({"update", TABLE_NAME, "set password=#{password} where id=#{id}"})
+//    void updatePassword(User user);
+//
+//    @Update({"update", TABLE_NAME, "set is_deleted=1 where id=#{id}"})
+//    void deleteById(int id);
 }

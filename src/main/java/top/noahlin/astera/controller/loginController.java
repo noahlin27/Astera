@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.StringUtils;
 import top.noahlin.astera.service.LoginService;
-import top.noahlin.astera.service.UserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -20,25 +20,28 @@ public class loginController {
     LoginService loginService;
 
     @GetMapping("/reglogin")
-    public String login(HttpServletRequest request) {
+    public String login(HttpServletRequest request,
+                        @RequestParam(value = "next", required = false) String next) {
+        request.setAttribute("next", next);
         return "login";
     }
 
     @PostMapping("/register")
     public String register(HttpServletRequest request,
                            @RequestParam("username") String username,
-                           @RequestParam("password") String password) {
+                           @RequestParam("password") String password,
+                           @RequestParam("next") String next) {
         try {
             Map<String, String> map = loginService.register(username, password);
-            if (map.containsKey("msg")) {
-                request.setAttribute("msg", map.get("msg"));
-                return "login";
-            }
             if (map.containsKey("success")) {
                 request.setAttribute("msg", map.get("success"));
-                return "login";
+                if (!StringUtils.isEmptyOrWhitespace(next)) {
+                    request.setAttribute("next", next);
+                }
+            }else {
+                request.setAttribute("msg", map.get("msg"));
             }
-            return "redirect:/login";
+            return "login";
         } catch (Exception e) {
             System.out.println("注册异常" + e.getMessage());
             return "login";
@@ -48,13 +51,17 @@ public class loginController {
     @PostMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response,
                         @RequestParam("username") String username,
-                        @RequestParam("password") String password) {
+                        @RequestParam("password") String password,
+                        @RequestParam("next") String next) {
         try {
             Map<String, String> map = loginService.login(username, password);
             if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket", map.get("ticket"));
                 cookie.setPath("/");
                 response.addCookie(cookie);
+                if (!StringUtils.isEmptyOrWhitespace(next)) {
+                    return "redirect:" + next;
+                }
                 return "redirect:/";
             } else {
                 request.setAttribute("msg", map.get("msg"));
@@ -67,7 +74,7 @@ public class loginController {
     }
 
     @GetMapping("/logout")
-    public String logout(@CookieValue("ticket") String ticket){
+    public String logout(@CookieValue("ticket") String ticket) {
         loginService.logout(ticket);
         return "redirect:/";
     }
