@@ -1,11 +1,13 @@
 package top.noahlin.astera.config;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.noahlin.astera.util.interceptor.PassportInterceptor;
 
 import javax.annotation.Resource;
 
+@Component
 public class WebConfig implements WebMvcConfigurer {
     @Resource
     PassportInterceptor passportInterceptor;

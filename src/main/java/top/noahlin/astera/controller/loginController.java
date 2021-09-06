@@ -1,9 +1,11 @@
 package top.noahlin.astera.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import top.noahlin.astera.service.LoginService;
 import top.noahlin.astera.service.UserService;
 
 import javax.annotation.Resource;
@@ -15,10 +17,10 @@ import java.util.Map;
 @Controller
 public class loginController {
     @Resource
-    UserService userService;
+    LoginService loginService;
 
-    @GetMapping ("/reglogin")
-    public String login(HttpServletRequest request){
+    @GetMapping("/reglogin")
+    public String login(HttpServletRequest request) {
         return "login";
     }
 
@@ -27,19 +29,18 @@ public class loginController {
                            @RequestParam("username") String username,
                            @RequestParam("password") String password) {
         try {
-            Map<String, String> map = userService.register(username, password);
+            Map<String, String> map = loginService.register(username, password);
             if (map.containsKey("msg")) {
                 request.setAttribute("msg", map.get("msg"));
                 return "login";
             }
-            if(map.containsKey("success")){
+            if (map.containsKey("success")) {
                 request.setAttribute("msg", map.get("success"));
                 return "login";
             }
             return "redirect:/login";
-        }
-        catch (Exception e){
-            System.out.println("注册异常"+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("注册异常" + e.getMessage());
             return "login";
         }
     }
@@ -47,23 +48,27 @@ public class loginController {
     @PostMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response,
                         @RequestParam("username") String username,
-                        @RequestParam("password") String password){
-    try{
-        Map<String, String> map = userService.login(username, password);
-        if(map.containsKey("ticket")){
-            Cookie cookie = new Cookie("ticket", map.get("ticket"));
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            return "redirect:/";
-        }
-        else {
-            request.setAttribute("msg",map.get("msg"));
+                        @RequestParam("password") String password) {
+        try {
+            Map<String, String> map = loginService.login(username, password);
+            if (map.containsKey("ticket")) {
+                Cookie cookie = new Cookie("ticket", map.get("ticket"));
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                return "redirect:/";
+            } else {
+                request.setAttribute("msg", map.get("msg"));
+                return "login";
+            }
+        } catch (Exception e) {
+            System.out.println("登录异常" + e.getMessage());
             return "login";
         }
     }
-    catch (Exception e){
-        System.out.println("登录异常"+e.getMessage());
-        return "login";
-    }
+
+    @GetMapping("/logout")
+    public String logout(@CookieValue("ticket") String ticket){
+        loginService.logout(ticket);
+        return "redirect:/";
     }
 }
