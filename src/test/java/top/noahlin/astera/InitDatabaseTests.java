@@ -19,7 +19,7 @@ import java.util.Random;
 import java.util.UUID;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Blog4uApplication.class)
+@SpringBootTest(classes = AsteraApplication.class)
 //@Sql("/init-schema.sql")
 @MapperScan({"top.noahlin.astera.dao"})
 public class InitDatabaseTests {
