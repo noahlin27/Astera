@@ -5,5 +5,7 @@ import top.noahlin.astera.model.Question;
 import java.util.List;
 
 public interface QuestionService {
+    int addQuestion(Question question);
+
     List<Question> getLatestQuestion(int userId, int offset, int limit);
 }

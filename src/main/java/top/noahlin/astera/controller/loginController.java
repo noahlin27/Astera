@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import top.noahlin.astera.service.LoginService;
 
 import javax.annotation.Resource;
@@ -35,7 +35,7 @@ public class loginController {
             Map<String, String> map = loginService.register(username, password);
             if (map.containsKey("success")) {
                 request.setAttribute("msg", map.get("success"));
-                if (!StringUtils.isEmptyOrWhitespace(next)) {
+                if (StringUtils.isNotBlank(next)) {
                     request.setAttribute("next", next);
                 }
             }else {
@@ -59,7 +59,7 @@ public class loginController {
                 Cookie cookie = new Cookie("ticket", map.get("ticket"));
                 cookie.setPath("/");
                 response.addCookie(cookie);
-                if (!StringUtils.isEmptyOrWhitespace(next)) {
+                if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next;
                 }
                 return "redirect:/";

@@ -14,7 +14,7 @@ public interface QuestionDAO {
     String SELECT_FIELDS = "id, " + INSERT_FIELDS;
 
     @Insert({"insert into", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{title}, #{content}, #{createTime}, #{userId}, #{commentCount})"})
-    void addQuestion(Question question);
+    int addQuestion(Question question);
 
     List<Question> selectLatestQuestions(@Param("userId") int userId,
                                          @Param("offset") int offset,

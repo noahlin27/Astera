@@ -1,7 +1,7 @@
 package top.noahlin.astera.service.impl;
 
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import top.noahlin.astera.dao.LoginTicketDAO;
 import top.noahlin.astera.dao.UserDAO;
 import top.noahlin.astera.model.LoginTicket;
@@ -24,11 +24,11 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Map<String, String> register(String username, String password) {
         Map<String, String> map = new HashMap<>();
-        if (StringUtils.isEmptyOrWhitespace(username)) {
+        if (StringUtils.isBlank(username)) {
             map.put("msg", "用户名不能为空");
             return map;
         }
-        if (StringUtils.isEmptyOrWhitespace(password)) {
+        if (StringUtils.isBlank(password)) {
             map.put("msg", "密码不能为空");
             return map;
         }
@@ -53,10 +53,10 @@ public class LoginServiceImpl implements LoginService {
     public Map<String, String> login(String username, String password) {
         Map<String, String> map = new HashMap<>();
         User user = userDAO.selectByName(username);
-        if (StringUtils.isEmptyOrWhitespace(username)) {
+        if (StringUtils.isBlank(username)) {
             map.put("msg", "用户名不能为空");
         }
-        if (StringUtils.isEmptyOrWhitespace(password)) {
+        if (StringUtils.isBlank(password)) {
             map.put("msg", "密码不能为空");
         }
 

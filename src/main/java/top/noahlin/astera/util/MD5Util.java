@@ -1,13 +1,16 @@
 package top.noahlin.astera.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.security.MessageDigest;
 
 public class MD5Util {
-    private static String byteArrayToHexString(byte b[]) {
-        StringBuffer resultSb = new StringBuffer();
-        for (int i = 0; i < b.length; i++)
-            resultSb.append(byteToHexString(b[i]));
+    private static final Logger logger = LoggerFactory.getLogger(MD5Util.class);
 
+    private static String byteArrayToHexString(byte[] b) {
+        StringBuilder resultSb = new StringBuilder();
+        for (byte value : b) resultSb.append(byteToHexString(value));
         return resultSb.toString();
     }
 
@@ -31,11 +34,12 @@ public class MD5Util {
             else
                 resultString = byteArrayToHexString(md.digest(resultString
                         .getBytes(charsetname)));
-        } catch (Exception exception) {
+        } catch (Exception e) {
+            logger.error("MD5加密失败", e);
         }
         return resultString;
     }
 
-    private static final String hexDigits[] = {"0", "1", "2", "3", "4", "5",
+    private static final String[] hexDigits = {"0", "1", "2", "3", "4", "5",
             "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
 }
