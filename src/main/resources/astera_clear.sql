@@ -14,10 +14,12 @@
 
 
 -- 导出 astera 的数据库结构
+DROP DATABASE IF EXISTS `astera`;
 CREATE DATABASE IF NOT EXISTS `astera` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
 USE `astera`;
 
 -- 导出  表 astera.comment 结构
+DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
@@ -33,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 -- 数据导出被取消选择。
 
 -- 导出  表 astera.feed 结构
+DROP TABLE IF EXISTS `feed`;
 CREATE TABLE IF NOT EXISTS `feed` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` datetime DEFAULT NULL,
@@ -46,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 -- 数据导出被取消选择。
 
 -- 导出  表 astera.login_ticket 结构
+DROP TABLE IF EXISTS `login_ticket`;
 CREATE TABLE IF NOT EXISTS `login_ticket` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -54,11 +58,12 @@ CREATE TABLE IF NOT EXISTS `login_ticket` (
   `status` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ticket_UNIQUE` (`ticket`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 
 -- 导出  表 astera.message 结构
+DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from_id` int(11) DEFAULT NULL,
@@ -75,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `message` (
 -- 数据导出被取消选择。
 
 -- 导出  表 astera.question 结构
+DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
@@ -84,11 +90,12 @@ CREATE TABLE IF NOT EXISTS `question` (
   `comment_count` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `date_index` (`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 
 -- 导出  表 astera.user 结构
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL DEFAULT '',
@@ -98,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_deleted` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 

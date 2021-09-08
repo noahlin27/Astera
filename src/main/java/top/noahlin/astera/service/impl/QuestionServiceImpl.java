@@ -17,6 +17,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Resource
     SensitiveFilterService sensitiveFilterService;
+
     @Override
     public int addQuestion(Question question) {
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));

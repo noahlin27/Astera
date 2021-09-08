@@ -1,4 +1,4 @@
-package top.noahlin.astera.util.interceptor;
+package top.noahlin.astera.util;
 
 import com.alibaba.fastjson.JSONObject;
 

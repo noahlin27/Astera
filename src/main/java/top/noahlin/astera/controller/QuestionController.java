@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.service.QuestionService;
-import top.noahlin.astera.util.interceptor.JsonUtil;
+import top.noahlin.astera.util.JsonUtil;
 
 import javax.annotation.Resource;
 import java.util.Date;
