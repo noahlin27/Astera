@@ -22,13 +22,16 @@ public class QuestionServiceImpl implements QuestionService {
     public int addQuestion(Question question) {
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
-        question.setTitle(sensitiveFilterService.filter(question.getTitle()));
-        question.setContent(sensitiveFilterService.filter(question.getContent()));
         return questionDAO.addQuestion(question) > 0 ? question.getUserId() : 0;
     }
 
     @Override
     public List<Question> getLatestQuestion(int userId, int offset, int limit) {
-        return questionDAO.selectLatestQuestions(userId, offset, limit);
+        List<Question> questions = questionDAO.selectLatestQuestions(userId, offset, limit);
+        for (Question question : questions) {
+            question.setTitle(sensitiveFilterService.filter(question.getTitle()));
+            question.setContent(sensitiveFilterService.filter(question.getContent()));
+        }
+        return questions;
     }
 }

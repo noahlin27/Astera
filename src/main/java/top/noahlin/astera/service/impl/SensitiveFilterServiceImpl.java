@@ -25,15 +25,15 @@ public class SensitiveFilterServiceImpl implements SensitiveFilterService, Initi
         if (StringUtils.isBlank(text)) {
             return text;
         }
+
         StringBuilder result = new StringBuilder();
-        String replacement = "*";
+        String replacement = "***";
         TrieNode temp = rootNode;
         int begin = 0;
         int position = 0;
 
         while (position < text.length()) {
             char c = text.charAt(position);
-
             if (isSymbol(c)) {
                 if (temp == rootNode) {
                     result.append(c);
@@ -42,7 +42,7 @@ public class SensitiveFilterServiceImpl implements SensitiveFilterService, Initi
                 ++position;
                 continue;
             }
-            //查c是否在子节点之中
+
             temp = temp.getSubNode(c);
             if (temp == null) {
                 result.append(text.charAt(begin));
@@ -56,33 +56,36 @@ public class SensitiveFilterServiceImpl implements SensitiveFilterService, Initi
             }
         }
         result.append(text.substring(begin));
+
         return result.toString();
     }
 
     /**
      * 从敏感词汇总文件读取敏感词
+     * @throws Exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         try {
-            InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("SensitiveWords.txt");
+            InputStream is = Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream("SensitiveWords.txt");
             if (is == null) {
-                throw new Exception("敏感词文件错误");
+                throw new Exception("打开敏感词文件错误");
             }
             InputStreamReader reader = new InputStreamReader(is);
             BufferedReader bufferedReader = new BufferedReader(reader);
-            while (bufferedReader.readLine() != null) {
-                addKeyWord(bufferedReader.readLine().trim());  //删除字符串两端的空格
+            String lineText;
+            while ((lineText=bufferedReader.readLine()) != null) {
+                addKeyWord(lineText.trim());        // 删除字符串两端的空白
             }
             reader.close();
         } catch (Exception e) {
-            logger.error("读取敏感词文件失败 " + e.getMessage());
+            logger.error("创建敏感词字典失败 " + e.getMessage());
         }
     }
 
     /**
      * 判断字符是否为符号，即非东南亚文字（0x2E80-0x9FFF 东亚文字范围）
-     *
      * @param c
      * @return
      */
@@ -92,51 +95,44 @@ public class SensitiveFilterServiceImpl implements SensitiveFilterService, Initi
 
     /**
      * 将关键词字符串添加到字典树
-     *
-     * @param lineText 一个关键词字符串
+     * @param lineText
      */
     public void addKeyWord(String lineText) {
         TrieNode temp = rootNode;
+
         for (int i = 0; i < lineText.length(); ++i) {
             Character c = lineText.charAt(i);
             TrieNode subNode = temp.getSubNode(c);
-
-            //临时节点的子节点不包含字符c，则添加一个c的新子节点
             if (subNode == null) {
                 subNode = new TrieNode();
                 temp.addSubNode(c, subNode);
             }
-
             temp = subNode;
-
-            if (i == lineText.length() - 1) {
-                temp.setEnd();
-            }
         }
+
+        temp.setEnd();
     }
 
-    private static class TrieNode {
-        //判断是否为关键词结尾
-        private boolean end = false;
+    static class TrieNode {
+        /** 是否为关键词结尾 */
+        boolean end = false;
 
-        /**
-         * key为子节点的字符，value为字符的子节点
-         */
-        private final Map<Character, TrieNode> subNodeMap = new HashMap<>();
+        /** key为节点的字符，value为节点的子节点 */
+        final Map<Character, TrieNode> subNodeMap = new HashMap<>();
 
-        private void addSubNode(Character key, TrieNode node) {
+        void addSubNode(Character key, TrieNode node) {
             subNodeMap.put(key, node);
         }
 
-        public TrieNode getSubNode(Character key) {
+        TrieNode getSubNode(Character key) {
             return subNodeMap.get(key);
         }
 
-        public boolean isEnd() {
+        boolean isEnd() {
             return end;
         }
 
-        public void setEnd() {
+        void setEnd() {
             this.end = true;
         }
     }
