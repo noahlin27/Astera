@@ -7,5 +7,7 @@ import java.util.List;
 public interface QuestionService {
     int addQuestion(Question question);
 
-    List<Question> getLatestQuestion(int userId, int offset, int limit);
+    List<Question> getLatestQuestions(int userId, int offset, int limit);
+
+    Question getQuestion(int id);
 }

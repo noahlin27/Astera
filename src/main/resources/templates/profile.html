@@ -120,6 +120,8 @@
             </div>
         </div>
     </div>
-#parse("js.html")
+<div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/profile.js"></script>
-#parse("footer.html")
+<div th:replace="footer::footer-fragment"></div>
+</body>
+</html>

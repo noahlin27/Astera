@@ -2,6 +2,7 @@ package top.noahlin.astera.dao;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.User;
@@ -19,6 +20,8 @@ public interface QuestionDAO {
     List<Question> selectLatestQuestions(@Param("userId") int userId,
                                          @Param("offset") int offset,
                                          @Param("limit") int limit);
+    @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where id=#{id}"})
+    Question selectById(int id);
 
 //    @Update({"update", TABLE_NAME, "set password=#{password} where id=#{id}"})
 //    void updatePassword(User user);

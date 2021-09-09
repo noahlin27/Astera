@@ -1,4 +1,9 @@
-#parse("header.html")
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" dropeffect="none" style=""
+      class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
+<head th:replace="header::head-fragment"></head>
+<body class="zhi">
+<div th:replace="header::header-nav(${user})"></div>
 <link rel="stylesheet" href="../styles/detail.css">
 <div class="zg-wrap zu-main clearfix with-indention-votebar" itemscope="" itemtype="http://schema.org/Question"
      id="zh-single-question-page" data-urltoken="36301524" role="main">
@@ -22,12 +27,12 @@
             <div id="zh-question-title" data-editable="true" class="zm-editable-status-normal">
                 <h2 class="zm-item-title">
 
-                    <span class="zm-editable-content">$!{question.title}</span>
+                    <span class="zm-editable-content" th:text="${question.title}"></span>
 
                 </h2>
             </div>
             <div id="zh-question-detail" class="zm-item-rich-text zm-editable-status-normal">
-                <div class="zm-editable-content">$!{question.content}</div>
+                <div class="zm-editable-content" th:text="${question.content}"></div>
             </div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
@@ -122,7 +127,7 @@
             <a name="draft"></a>
 
             <form action="/addComment" method="post">
-                <input type="hidden" name="questionId" value="$!{question.id}"/>
+                <input type="hidden" name="questionId" th:value="${question.id}"/>
             <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
                 <div class="zm-editable-editor-wrap" style="">
                     <div class="zm-editable-editor-outer">
@@ -142,6 +147,8 @@
         </div>
     </div>
 </div>
-#parse("js.html")
+<div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
-#parse("footer.html")
+<div th:replace="footer::footer-fragment"></div>
+</body>
+</html>

@@ -32,14 +32,14 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/user/{username}", method = {RequestMethod.GET, RequestMethod.POST})
-    public String userIndex(HttpServletRequest request, @PathVariable("username") String username){
+    public String profile(HttpServletRequest request, @PathVariable("username") String username){
         request.setAttribute("vos", getQuestions(userService.getUser(username).getId()));
 //        request.setAttribute("user", userService.getUser(username));
-        return "index";
+        return "profile";
     }
 
     public List<ViewObject> getQuestions(int userId){
-        List<Question> questionList = questionService.getLatestQuestion(userId, 0, 10);
+        List<Question> questionList = questionService.getLatestQuestions(userId, 0, 10);
         List<ViewObject> vos = new ArrayList<>();
         for (Question question : questionList) {
             ViewObject vo = new ViewObject();

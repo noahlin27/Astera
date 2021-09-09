@@ -26,12 +26,17 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> getLatestQuestion(int userId, int offset, int limit) {
+    public List<Question> getLatestQuestions(int userId, int offset, int limit) {
         List<Question> questions = questionDAO.selectLatestQuestions(userId, offset, limit);
         for (Question question : questions) {
             question.setTitle(sensitiveFilterService.filter(question.getTitle()));
             question.setContent(sensitiveFilterService.filter(question.getContent()));
         }
         return questions;
+    }
+
+    @Override
+    public Question getQuestion(int id) {
+        return questionDAO.selectById(id);
     }
 }

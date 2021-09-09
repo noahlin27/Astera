@@ -22,7 +22,7 @@ import java.util.UUID;
 @SpringBootTest(classes = AsteraApplication.class)
 //@Sql("/init-schema.sql")
 @MapperScan({"top.noahlin.astera.dao"})
-public class InitDatabaseTests {
+public class DatabaseCRUDTests {
     @Resource
     UserDAO userDAO;
 
