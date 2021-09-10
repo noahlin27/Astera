@@ -20,9 +20,9 @@
 /*!40000 ALTER TABLE `feed` DISABLE KEYS */;
 /*!40000 ALTER TABLE `feed` ENABLE KEYS */;
 
--- 正在导出表  astera.login_ticket 的数据：~25 rows (大约)
+-- 正在导出表  astera.login_ticket 的数据：~32 rows (大约)
 /*!40000 ALTER TABLE `login_ticket` DISABLE KEYS */;
-REPLACE INTO `login_ticket` (`id`, `user_id`, `ticket`, `expired`, `status`) VALUES
+INSERT IGNORE INTO `login_ticket` (`id`, `user_id`, `ticket`, `expired`, `status`) VALUES
 	(2, 11, '9927588bb7e640a582eb5779985dd439', '2021-09-03 14:56:00', 0),
 	(3, 11, 'cfbaaab3aa244413b9ccc3d2478ca5da', '2021-09-03 14:58:56', 0),
 	(4, 11, 'ee6aefcb3b1b429088d10aa49eefe3d4', '2021-09-03 15:00:04', 0),
@@ -47,16 +47,23 @@ REPLACE INTO `login_ticket` (`id`, `user_id`, `ticket`, `expired`, `status`) VAL
 	(23, 11, '7283458721fb4e7698ee481458164fd3', '2021-09-08 12:57:04', 1),
 	(24, 12, '4d566e2bef2e4c93a132c42dfc52e681', '2021-09-08 12:57:17', 0),
 	(25, 13, '1aa63944d3f64747a29f6a9e387f5422', '2021-09-08 15:15:12', 0),
-	(26, 14, '29f1d5a4e12248bd959603182fe74403', '2021-09-08 19:39:47', 0);
+	(26, 14, '29f1d5a4e12248bd959603182fe74403', '2021-09-08 19:39:47', 0),
+	(27, 14, '538b955575a84e80bfb3f50e5ea5a799', '2021-09-09 10:43:49', 0),
+	(28, 14, '6f2a635e38cf48e59e7b57c67429af9f', '2021-09-09 11:49:29', 0),
+	(29, 1, '03fee01a89e3476db74fa473734b6577', '2021-09-09 15:47:42', 0),
+	(30, 1, '377fe37413334d9fbdc37bf22c6977d5', '2021-09-09 17:06:00', 0),
+	(31, 1, 'b45ad18bdd534bb2a75183576a420fc6', '2021-09-09 18:41:57', 0),
+	(32, 1, 'c11c2ad5c8e24983beffb39d718a16c4', '2021-09-10 17:57:57', 1),
+	(33, 2, '1563ddd774d44f41bf8965409f87ad7a', '2021-09-10 17:58:12', 0);
 /*!40000 ALTER TABLE `login_ticket` ENABLE KEYS */;
 
 -- 正在导出表  astera.message 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 
--- 正在导出表  astera.question 的数据：~56 rows (大约)
+-- 正在导出表  astera.question 的数据：~64 rows (大约)
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-REPLACE INTO `question` (`id`, `title`, `content`, `user_id`, `create_time`, `comment_count`) VALUES
+INSERT IGNORE INTO `question` (`id`, `title`, `content`, `user_id`, `create_time`, `comment_count`) VALUES
 	(1, 'TITLE{0}', 'Content 0', 1, '2021-08-27 11:59:06', 4),
 	(2, 'TITLE{1}', 'Content 1', 2, '2021-08-27 12:59:06', 2),
 	(3, 'TITLE{2}', 'Content 2', 3, '2021-08-27 13:59:06', 8),
@@ -112,12 +119,20 @@ REPLACE INTO `question` (`id`, `title`, `content`, `user_id`, `create_time`, `co
 	(63, 'test2', 'whitespace test', 12, '2021-09-08 11:57:44', 0),
 	(64, 'test2', 'whitespace test2\ntest', 12, '2021-09-08 11:58:48', 0),
 	(68, 'test3', 'line1\nline2      \nline3', 13, '2021-09-08 14:15:44', 0),
-	(69, 'test4', '坚决抵制毒品\n    坚 决 抵 制 毒 品    \n#坚#决#抵#制#毒#品#', 14, '2021-09-08 18:40:50', 0);
+	(72, 'test4', 'dupin *\nbaoli *\ndubo *\nseqing *', 14, '2021-09-09 10:21:32', 0),
+	(73, 'test4', 'dupin ？？？\nbaoli ？？？', 14, '2021-09-09 10:23:48', 0),
+	(74, 'test4', '你???', 14, '2021-09-09 10:24:35', 0),
+	(75, 'test4', '你***', 14, '2021-09-09 10:24:52', 0),
+	(77, 'test4', '&lt;script&gt;alert(&#39;hello&#39;)&lt;/script&gt;', 14, '2021-09-09 10:54:54', 0),
+	(79, 'USER0', '毒品\n暴力\n赌博\n色情\n敏感词保存，读取时不可见', 1, '2021-09-09 16:06:08', 0),
+	(80, 'USER0', '&lt;script&gt;alert(&#39;hello&#39;)&lt;/script&gt;\nhtml标签转义保存，读取时反转义', 1, '2021-09-09 16:08:26', 0),
+	(82, 'filterTest', '毒品\n暴力\n赌博\n色情\n敏感词保存，读取时不可见', 2, '2021-09-10 16:59:26', 0),
+	(83, 'filterTest', '&lt;script&gt;alert(&#39;hello&#39;)&lt;/script&gt;\nhtml标签转义保存，读取时反转义', 2, '2021-09-10 16:59:57', 0);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 
 -- 正在导出表  astera.user 的数据：~14 rows (大约)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-REPLACE INTO `user` (`id`, `name`, `password`, `salt`, `head_url`, `is_deleted`) VALUES
+INSERT IGNORE INTO `user` (`id`, `name`, `password`, `salt`, `head_url`, `is_deleted`) VALUES
 	(1, 'USER0', '0d8573591cd3de34ae856af75dd54bce', 'ea454', 'https://images.nowcoder.com/head/510t.png', 0),
 	(2, 'USER1', 'c7c386c7917ae14a1f68d6d6dbc06897', '88abc', 'https://images.nowcoder.com/head/550t.png', 0),
 	(3, 'USER2', '915d2e65f7fa9066ebfd8603d88a4402', '1cd80', 'https://images.nowcoder.com/head/66t.png', 1),
