@@ -48,7 +48,7 @@ public class QuestionController {
     }
 
     @GetMapping("/question/{questionId}")
-    public String question(HttpServletRequest request,
+    public String questionDetail(HttpServletRequest request,
                            @PathVariable("questionId") int id) {
         Question question = questionService.getQuestion(id);
         request.setAttribute("question", question);
