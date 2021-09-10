@@ -20,8 +20,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public int addQuestion(Question question) {
-        question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
-        question.setContent(HtmlUtils.htmlEscape(question.getContent()));
+        filterW(question);
         return questionDAO.addQuestion(question) > 0 ? question.getUserId() : 0;
     }
 
@@ -29,14 +28,25 @@ public class QuestionServiceImpl implements QuestionService {
     public List<Question> getLatestQuestions(int userId, int offset, int limit) {
         List<Question> questions = questionDAO.selectLatestQuestions(userId, offset, limit);
         for (Question question : questions) {
-            question.setTitle(sensitiveFilterService.filter(question.getTitle()));
-            question.setContent(sensitiveFilterService.filter(question.getContent()));
+            filterR(question);
         }
         return questions;
     }
 
     @Override
     public Question getQuestion(int id) {
-        return questionDAO.selectById(id);
+        Question question =questionDAO.selectById(id);
+        filterR(question);
+        return question;
+    }
+
+    private void filterR(Question question){
+        question.setTitle(sensitiveFilterService.filter(question.getTitle()));
+        question.setContent(sensitiveFilterService.filter(question.getContent()));
+    }
+
+    private void filterW(Question question){
+        question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
+        question.setContent(HtmlUtils.htmlEscape(question.getContent()));
     }
 }
