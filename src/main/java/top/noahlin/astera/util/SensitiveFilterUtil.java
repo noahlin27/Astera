@@ -1,12 +1,11 @@
-package top.noahlin.astera.service.impl;
+package top.noahlin.astera.util;
 
 import org.apache.commons.lang3.CharUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.apache.commons.lang3.StringUtils;
-import top.noahlin.astera.service.SensitiveFilterService;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,13 +13,12 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
-public class SensitiveFilterServiceImpl implements SensitiveFilterService, InitializingBean {
-    private static final Logger logger = LoggerFactory.getLogger(SensitiveFilterService.class);
+@Component
+public class SensitiveFilterUtil implements InitializingBean {
+    private static final Logger logger = LoggerFactory.getLogger(SensitiveFilterUtil.class);
 
     private final TrieNode rootNode = new TrieNode();
 
-    @Override
     public String filter(String text) {
         if (StringUtils.isBlank(text)) {
             return text;

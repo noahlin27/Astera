@@ -3,11 +3,14 @@ package top.noahlin.astera.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 import top.noahlin.astera.dao.QuestionDAO;
+import top.noahlin.astera.dao.UserDAO;
 import top.noahlin.astera.model.Question;
+import top.noahlin.astera.model.ViewObject;
 import top.noahlin.astera.service.QuestionService;
-import top.noahlin.astera.service.SensitiveFilterService;
+import top.noahlin.astera.util.SensitiveFilterUtil;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,7 +19,10 @@ public class QuestionServiceImpl implements QuestionService {
     QuestionDAO questionDAO;
 
     @Resource
-    SensitiveFilterService sensitiveFilterService;
+    UserDAO userDAO;
+
+    @Resource
+    SensitiveFilterUtil sensitiveFilterUtil;
 
     @Override
     public int addQuestion(Question question) {
@@ -25,12 +31,17 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> getLatestQuestions(int userId, int offset, int limit) {
-        List<Question> questions = questionDAO.selectLatestQuestions(userId, offset, limit);
+    public List<ViewObject> getQuestionList(int userId) {
+        List<Question> questions = questionDAO.selectLatestQuestions(userId, 0, 10);
+        List<ViewObject> vos = new ArrayList<>();
         for (Question question : questions) {
+            ViewObject vo = new ViewObject();
             questionFilterForRead(question);
+            vo.set("user", userDAO.selectById(question.getUserId()));
+            vo.set("question", question);
+            vos.add(vo);
         }
-        return questions;
+        return vos;
     }
 
     @Override
@@ -41,8 +52,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private void questionFilterForRead(Question question){
-        question.setTitle(sensitiveFilterService.filter(question.getTitle()));
-        question.setContent(sensitiveFilterService.filter(question.getContent()));
+        question.setTitle(sensitiveFilterUtil.filter(question.getTitle()));
+        question.setContent(sensitiveFilterUtil.filter(question.getContent()));
     }
 
     private void questionFilterForWrite(Question question){

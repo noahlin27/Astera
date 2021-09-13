@@ -1,13 +1,14 @@
 package top.noahlin.astera.service;
 
 import top.noahlin.astera.model.Question;
+import top.noahlin.astera.model.ViewObject;
 
 import java.util.List;
 
 public interface QuestionService {
     int addQuestion(Question question);
 
-    List<Question> getLatestQuestions(int userId, int offset, int limit);
+    List<ViewObject> getQuestionList(int userId);
 
     Question getQuestion(int id);
 }

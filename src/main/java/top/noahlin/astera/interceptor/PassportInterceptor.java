@@ -1,4 +1,4 @@
-package top.noahlin.astera.util.interceptor;
+package top.noahlin.astera.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

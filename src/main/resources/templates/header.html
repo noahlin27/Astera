@@ -26,7 +26,7 @@
         <div class="top-nav-profile">
             <ul class="topnav-noauth clearfix" th:if="${#strings.isEmpty(user)}">
                 <li>
-                    <a href="/reglogin">注册/登陆</a>
+                    <a href="/reglogin">登录/注册</a>
                 </li>
             </ul>
             <div th:if="${not #strings.isEmpty(user)}">
@@ -63,7 +63,7 @@
         <button class="zu-top-add-question" id="zu-top-add-question" th:if="${not #strings.isEmpty(user)}">提问</button>
         <div role="search" id="zh-top-search" class="zu-top-search">
             <form method="GET" action="/search" id="zh-top-search-form" class="zu-top-search-form">
-                <label for="q" class="hide-text">Blog4u search</label><input type="text" class="zu-top-search-input" id="q"
+                <label for="q" class="hide-text">Astera search</label><input type="text" class="zu-top-search-input" id="q"
                        name="q" autocomplete="off" th:value="*{keyword}?:''" placeholder="搜索你感兴趣的内容..."
                        role="combobox" aria-autocomplete="list">
                 <button type="submit" class="zu-top-search-button"><span class="hide-text">搜索</span><span

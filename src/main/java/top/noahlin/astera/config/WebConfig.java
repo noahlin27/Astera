@@ -3,8 +3,8 @@ package top.noahlin.astera.config;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import top.noahlin.astera.util.interceptor.LoginRequiredInterceptor;
-import top.noahlin.astera.util.interceptor.PassportInterceptor;
+import top.noahlin.astera.interceptor.LoginRequiredInterceptor;
+import top.noahlin.astera.interceptor.PassportInterceptor;
 
 import javax.annotation.Resource;
 
