@@ -6,7 +6,7 @@
     <sql id="TABLE_NAME">question</sql>
     <sql id="SELECT_FIELDS">id, title, content, create_time, user_id, comment_count</sql>
 
-    <select id="selectLatestQuestions" resultType="top.noahlin.astera.model.Question">
+    <select id="selectLatest" resultType="top.noahlin.astera.model.Question">
         SELECT
         <include refid="SELECT_FIELDS"></include>
         FROM

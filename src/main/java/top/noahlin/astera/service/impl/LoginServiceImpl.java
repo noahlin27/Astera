@@ -44,7 +44,7 @@ public class LoginServiceImpl implements LoginService {
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
         user.setHeadUrl(String.format("https://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
         user.setPassword(MD5Util.Encode(password + user.getSalt(), "utf-8"));
-        userDAO.addUser(user);
+        userDAO.insert(user);
         map.put("success", "注册成功! 请登录");
         return map;
     }
@@ -90,7 +90,7 @@ public class LoginServiceImpl implements LoginService {
         loginTicket.setExpired(now);
         loginTicket.setStatus(0);
         loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));
-        loginTicketDAO.addLoginTicket(loginTicket);
+        loginTicketDAO.insert(loginTicket);
         return loginTicket.getTicket();
     }
 }

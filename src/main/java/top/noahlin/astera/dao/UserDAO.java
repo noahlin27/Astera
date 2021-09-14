@@ -9,7 +9,7 @@ public interface UserDAO {
     String SELECT_FIELDS = "id, " + INSERT_FIELDS;
 
     @Insert({"insert into", TABLE_NAME, "(", INSERT_FIELDS, ") values (#{name}, #{password}, #{salt}, #{headUrl}, #{isDeleted})"})
-    void addUser(User user);
+    void insert(User user);
 
     @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where id=#{id}"})
     User selectById(int id);
@@ -21,6 +21,6 @@ public interface UserDAO {
     void updatePassword(User user);
 
     @Update({"update", TABLE_NAME, "set is_deleted=1 where id=#{id}"})
-    void deleteById(int id);
+    void updateIsDeleted(int id);
 
 }

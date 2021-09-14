@@ -5,9 +5,11 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
+import top.noahlin.astera.dao.CommentDAO;
 import top.noahlin.astera.dao.LoginTicketDAO;
 import top.noahlin.astera.dao.QuestionDAO;
 import top.noahlin.astera.dao.UserDAO;
+import top.noahlin.astera.model.Comment;
 import top.noahlin.astera.model.LoginTicket;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.User;
@@ -32,6 +34,9 @@ public class DatabaseCRUDTests {
     @Resource
     LoginTicketDAO loginTicketDAO;
 
+    @Resource
+    CommentDAO commentDAO;
+
     @Test
     public void AddUserTest() {
         Random random = new Random();
@@ -42,14 +47,14 @@ public class DatabaseCRUDTests {
             user.setPassword("");
             user.setSalt("");
             user.setIsDeleted(0);
-            userDAO.addUser(user);
+            userDAO.insert(user);
         }
 
         User user = new User();
         user.setId(random.nextInt(10) + 1);
         user.setPassword("password");
         userDAO.updatePassword(user);
-        userDAO.deleteById(random.nextInt(10) + 1);
+        userDAO.updateIsDeleted(random.nextInt(10) + 1);
     }
 
     @Test
@@ -82,13 +87,13 @@ public class DatabaseCRUDTests {
             question.setUserId(i + 1);
             question.setTitle(String.format("TITLE{%d}", i));
             question.setContent(String.format("Content %d", i));
-            questionDAO.addQuestion(question);
+            questionDAO.insert(question);
         }
     }
 
     @Test
     public void SelectQuestionTest() {
-        for (Question question : questionDAO.selectLatestQuestions(0, 0, 10))
+        for (Question question : questionDAO.selectLatest(0, 0, 10))
             System.out.println(question.toString());
     }
 
@@ -100,6 +105,20 @@ public class DatabaseCRUDTests {
         Date now = new Date();
         now.setTime(now.getTime() + 3600);
         loginTicket.setExpired(now);
-        loginTicketDAO.addLoginTicket(loginTicket);
+        loginTicketDAO.insert(loginTicket);
+    }
+
+    @Test
+    public void addComment(){
+        Comment comment = new Comment();
+        Date date = new Date();
+        comment.setContent("test");
+        comment.setUserId(1);
+        comment.setEntityId(1);
+        comment.setEntityType(1);
+        date.setTime(date.getTime());
+        comment.setCreateTime(date);
+        comment.setStatus(0);
+        System.out.println(commentDAO.insert(comment));
     }
 }

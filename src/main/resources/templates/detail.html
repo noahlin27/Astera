@@ -3,7 +3,7 @@
       class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
 <head th:replace="header::head-fragment"></head>
 <body class="zhi">
-<div th:replace="header::header-nav(${user})"></div>
+<div th:replace="header::nav-fragment(${user})"></div>
 <link rel="stylesheet" href="../styles/detail.css">
 <div class="zg-wrap zu-main clearfix with-indention-votebar" itemscope="" itemtype="http://schema.org/Question"
      id="zh-single-question-page" data-urltoken="36301524" role="main">
@@ -36,19 +36,14 @@
             </div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
-                    #if ($followed)
-                    <button class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
-                            data-status="1">
-                        取消关注
+                    <button th:if="${not #strings.isEmpty(question)}" class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
+                            data-status="1">取消关注
                     </button>
-                    #else
-                    <button class="follow-button zg-follow zg-btn-green js-follow-question" data-id="${question.id}">
-                        关注问题
+                    <button th:if="${#strings.isEmpty(question)}" class="follow-button zg-follow zg-btn-green js-follow-question" data-id="${question.id}">关注问题
                     </button>
-                    #end
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
-                            <a href="javascript:void(0);"><strong class="js-user-count">${followUsers.size()}</strong></a>人关注该问题
+                            <a href="javascript:void(0);"><strong class="js-user-count" th:text="${question.commentCount}"></strong></a>人关注该问题
                         </div>
                         <div class="list zu-small-avatar-list zg-clear js-user-list">
                             #foreach($vo in $followUsers)
@@ -73,21 +68,22 @@
                     <a class="zg-anchor-hidden" name="answer-22162611"></a>
 
                     <div class="zm-votebar goog-scrollfloater js-vote" data-id="$!{comment.comment.id}">
-                        #if($comment.liked > 0)
-                        <button class="up js-like pressed" title="赞同">
-                        #else
-                        <button class="up js-like" title="赞同">
-                        #end
+                        <button th:if="${question.commentCount}>=0" class="up js-like pressed" title="赞同">
                             <i class="icon vote-arrow"></i>
-                            <span class="count js-voteCount">$!{comment.likeCount}</span>
+                            <span class="count js-voteCount" th:text="${question.commentCount}"></span>
+                            <span class="label sr-only">赞同</span>
+                        </button>
+                        <button th:if="${question.commentCount}<0" class="up js-like" title="赞同">
+                            <i class="icon vote-arrow"></i>
+                            <span class="count js-voteCount" th:text="${question.commentCount}"></span>
                             <span class="label sr-only">赞同</span>
                         </button>
 
-                        #if($comment.liked < 0)
-                        <button class="down js-dislike pressed" title="反对，不会显示你的姓名">
-                        #else
-                        <button class="down js-dislike" title="反对，不会显示你的姓名">
-                        #end
+                        <button th:if="${question.commentCount}<0" class="down js-dislike pressed" title="反对，不会显示你的姓名">
+                            <i class="icon vote-arrow"></i>
+                            <span class="label sr-only">反对，不会显示你的姓名</span>
+                        </button>
+                        <button th:if="${question.commentCount}>=0" class="down js-dislike" title="反对，不会显示你的姓名">
                             <i class="icon vote-arrow"></i>
                             <span class="label sr-only">反对，不会显示你的姓名</span>
                         </button>

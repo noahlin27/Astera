@@ -1,7 +1,5 @@
 package top.noahlin.astera.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Question {
@@ -58,18 +56,5 @@ public class Question {
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
-    }
-
-    @Override
-    public String toString() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return "Question{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", createTime=" + df.format(createTime) +
-                ", userId=" + userId +
-                ", commentCount=" + commentCount +
-                '}';
     }
 }

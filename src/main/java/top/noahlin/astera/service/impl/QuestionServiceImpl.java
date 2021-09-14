@@ -26,17 +26,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public int addQuestion(Question question) {
-        questionFilterForWrite(question);
-        return questionDAO.addQuestion(question) > 0 ? question.getUserId() : 0;
+        insertQuestionFilter(question);
+        return questionDAO.insert(question) > 0 ? question.getUserId() : 0;
     }
 
     @Override
     public List<ViewObject> getQuestionList(int userId) {
-        List<Question> questions = questionDAO.selectLatestQuestions(userId, 0, 10);
+        List<Question> questions = questionDAO.selectLatest(userId, 0, 10);
         List<ViewObject> vos = new ArrayList<>();
         for (Question question : questions) {
             ViewObject vo = new ViewObject();
-            questionFilterForRead(question);
+            selectQuestionFilter(question);
             vo.set("user", userDAO.selectById(question.getUserId()));
             vo.set("question", question);
             vos.add(vo);
@@ -46,17 +46,17 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question getQuestion(int id) {
-        Question question =questionDAO.selectById(id);
-        questionFilterForRead(question);
+        Question question = questionDAO.selectById(id);
+        selectQuestionFilter(question);
         return question;
     }
 
-    private void questionFilterForRead(Question question){
+    private void selectQuestionFilter(Question question) {
         question.setTitle(sensitiveFilterUtil.filter(question.getTitle()));
         question.setContent(sensitiveFilterUtil.filter(question.getContent()));
     }
 
-    private void questionFilterForWrite(Question question){
+    private void insertQuestionFilter(Question question) {
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
     }

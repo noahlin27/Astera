@@ -72,16 +72,4 @@ public class User {
     public void setIsDeleted(int isDeleted) {
         this.isDeleted = isDeleted;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
-                ", headUrl='" + headUrl + '\'' +
-                ", isDeleted=" + isDeleted +
-                '}';
-    }
 }
