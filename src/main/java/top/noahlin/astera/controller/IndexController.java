@@ -26,6 +26,7 @@ public class IndexController {
 
     @RequestMapping(value = "/user/{username}", method = {RequestMethod.GET, RequestMethod.POST})
     public String profile(HttpServletRequest request, @PathVariable("username") String username){
+        request.setAttribute("userProfile", userService.getUser(username));
         request.setAttribute("questionListVO", questionService.getQuestionList(userService.getUser(username).getId()));
         return "profile";
     }

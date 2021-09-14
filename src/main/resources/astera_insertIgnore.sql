@@ -54,7 +54,8 @@ INSERT IGNORE INTO `login_ticket` (`id`, `user_id`, `ticket`, `expired`, `status
 	(30, 1, '377fe37413334d9fbdc37bf22c6977d5', '2021-09-09 17:06:00', 0),
 	(31, 1, 'b45ad18bdd534bb2a75183576a420fc6', '2021-09-09 18:41:57', 0),
 	(32, 1, 'c11c2ad5c8e24983beffb39d718a16c4', '2021-09-10 17:57:57', 1),
-	(33, 2, '1563ddd774d44f41bf8965409f87ad7a', '2021-09-10 17:58:12', 0);
+	(33, 2, '1563ddd774d44f41bf8965409f87ad7a', '2021-09-10 17:58:12', 0),
+	(34, 2, 'e86d8c93af344a778b4d888b7b1175c4', '2021-09-13 19:43:38', 0);
 /*!40000 ALTER TABLE `login_ticket` ENABLE KEYS */;
 
 -- 正在导出表  astera.message 的数据：~0 rows (大约)

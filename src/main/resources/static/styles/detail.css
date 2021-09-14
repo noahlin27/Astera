@@ -219,7 +219,7 @@ html.in-app body.zhi {
     padding-top:0
 }
 a {
-    color:#25bb9b
+    color:#25bb9b;
 }
 a:active {
     outline:0
@@ -497,7 +497,8 @@ address,sup {
     font-weight:400
 }
 .zg-right {
-    float:right
+    float:right;
+    margin-top: 14px;
 }
 .zg-left {
     float:left
@@ -516,7 +517,9 @@ address,sup {
 }
 .zg-link {
     cursor:pointer;
-    text-decoration:none
+    text-decoration:none;
+    font-weight: 700;
+    font-size: 16px;
 }
 .zg-link:hover {
     text-decoration:underline
@@ -4824,8 +4827,10 @@ html.no-touchevents .feed-source a:hover {
 .feed-item .ignore:hover {
     background-position:-261px -42px
 }
-.feed-item .feed-content h2 {
-    margin-right:20px
+.feed-item .feed-content span{
+    margin-right:20px;
+    font-weight: 700;
+    font-size: 14px;
 }
 .feed-item .more_opt {
     cursor:pointer
@@ -6014,7 +6019,7 @@ html.no-touchevents .side-topic-item .delete:hover {
 .topic-pages .feed-switcher-tip,.topic-feed-page .feed-switcher-tip {
     float:left
 }
-.topic-pages .feed-item .feed-content h2,.topic-feed-page .feed-item .feed-content h2 {
+.topic-pages .feed-item .feed-content,.topic-feed-page .feed-item .feed-content {
     margin-right:0
 }
 .topic-pages .ignore,.topic-feed-page .ignore {
@@ -6023,7 +6028,7 @@ html.no-touchevents .side-topic-item .delete:hover {
 .topic-pages .time,.topic-feed-page .time {
     font-weight:400
 }
-.topic-pages .zu-top-feed-list .feed-item h2,.topic-feed-page .zu-top-feed-list .feed-item h2 {
+.topic-pages .zu-top-feed-list .feed-item,.topic-feed-page .zu-top-feed-list .feed-item {
     margin-bottom:2px
 }
 .topic-pages .zu-top-feed-list .feed-item .feed-meta,.topic-feed-page .zu-top-feed-list .feed-item .feed-meta {
