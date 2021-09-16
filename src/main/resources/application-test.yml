@@ -21,17 +21,17 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-swagger:
-  title: title
-  description: description
-  version: version
+swagger:  # http://127.0.0.1:50382/swagger-ui/index.html
+  title: Astera
+  description: Project Astera API Documentation
+  version: test-version
   license: Apache License, Version 2.0
   license-url: https://www.apache.org/licenses/LICENSE-2.0.html
   terms-of-service-url: https://github.com/dyc87112/spring-boot-starter-swagger
   contact:
-    name: name
-    url: url
-    email: email
+    name: 苍星_Aoihoshi
+    url: noahlin.top
+    email: noahlin27@qq.com
   base-package: top.noahlin.astera.controller
   base-path: /**
   exclude-path: /error
