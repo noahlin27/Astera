@@ -30,7 +30,7 @@
                 </h2>
             </div>
             <div id="zh-question-detail" class="zm-item-rich-text zm-editable-status-normal"
-                 th:text="${questionVO.get('question').content}"></div>
+                 th:utext="${questionVO.get('question').content}"></div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
                     <button th:if="${not #strings.isEmpty(questionVO)}" class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
@@ -87,7 +87,7 @@
                         <div class="zm-item-answer-author-info">
                             <a class="zm-item-link-avatar avatar-link" href="" target="_blank" data-tip="p$t$yingxiaodao">
                                 <img th:src="${commentVO.get('user').headUrl}" class="zm-list-avatar avatar"></a>
-                            <a class="author-link" data-tip="p$t$yingxiaodao" target="_blank" href="" th:text="${commentVO.get('user').name}"></a>
+                            <a class="author-link" data-tip="p$t$yingxiaodao" target="_blank" th:href="@{'/user/'+${commentVO.get('user').name}}" th:text="${commentVO.get('user').name}"></a>
                         </div>
                         <div class="zm-item-vote-info">
                                 <span class="voters text">
@@ -95,7 +95,7 @@
                                 </span>
                         </div>
                     </div>
-                    <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688" data-action="/answer/content" data-author-name="营销岛" data-entry-url="/question/36301524/answer/66862039" th:text="${commentVO.get('comment').content}"></div>
+                    <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688" data-action="/answer/content" data-author-name="营销岛" data-entry-url="/question/36301524/answer/66862039" th:utext="${commentVO.get('comment').content}"></div>
                     <a class="zg-anchor-hidden ac" id="22162611-comment"></a>
                     <div class="zm-item-meta answer-actions clearfix js-contentActions">
                         <div class="zm-meta-panel">

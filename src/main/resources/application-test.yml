@@ -1,0 +1,38 @@
+server:
+  port: 50382
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mariadb://localhost:3306/astera?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+
+  thymeleaf:
+    cache: false
+
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+swagger:
+  title: title
+  description: description
+  version: version
+  license: Apache License, Version 2.0
+  license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+  terms-of-service-url: https://github.com/dyc87112/spring-boot-starter-swagger
+  contact:
+    name: name
+    url: url
+    email: email
+  base-package: top.noahlin.astera.controller
+  base-path: /**
+  exclude-path: /error
+  host: 127.0.0.1:50382

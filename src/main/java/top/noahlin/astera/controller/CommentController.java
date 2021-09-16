@@ -9,6 +9,7 @@ import top.noahlin.astera.common.CommentEntityTypeEnum;
 import top.noahlin.astera.model.Comment;
 import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.service.CommentService;
+import top.noahlin.astera.service.QuestionService;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -19,6 +20,9 @@ public class CommentController {
 
     @Resource
     CommentService commentService;
+
+    @Resource
+    QuestionService questionService;
 
     @Resource
     HostHolder hostHolder;
@@ -33,6 +37,8 @@ public class CommentController {
             comment.setEntityId(questionId);
             comment.setCreateTime(new Date());
             commentService.addComment(comment);
+
+            questionService.updateCommentCount(comment.getEntityId(), commentService.getCommentCount(comment.getEntityId(), comment.getEntityType()));
         } catch (Exception e) {
             logger.error("增加评论失败"+e.getMessage());
         }

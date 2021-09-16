@@ -35,12 +35,12 @@ public class Comment {
         this.userId = userId;
     }
 
-    public void setEntityType(int entityType) {
-        this.entityType = entityType;
+    public int getEntityType() {
+        return entityType;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public void setEntityType(int entityType) {
+        this.entityType = entityType;
     }
 
     public int getEntityId() {
@@ -49,6 +49,10 @@ public class Comment {
 
     public void setEntityId(int entityId) {
         this.entityId = entityId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
     }
 
     public void setCreateTime(Date createTime) {

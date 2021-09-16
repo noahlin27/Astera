@@ -11,4 +11,6 @@ public interface QuestionService {
     List<ViewObject> getQuestionList(int userId);
 
     Question getQuestion(int id);
+
+    int updateCommentCount(int id, int commentCount);
 }

@@ -8,10 +8,7 @@
          data-delayed="true" data-za-module="TopStoryFeedList">
         <div class="feed-item folding feed-item-hook feed-item-2" data-type="a" id="feed-2"
              data-za-module="FeedItem" data-za-index="" th:each="vo:${questionListVO}">
-            <meta itemprop="ZReactor" data-id="389034"
-                  data-meta="{&quot;source_type&quot;: &quot;promotion_answer&quot;,
-                                        &quot;voteups&quot;: 4168, &quot;comments&quot;: 69,
-                                        &quot;source&quot;: []}">
+            <meta itemprop="ZReactor" data-id="389034">
             <div class="feed-item-inner">
                 <div class="avatar">
                     <a th:title="${vo.get('user').name}" data-tip="p$t$amuro1230"
@@ -58,7 +55,7 @@
                             </div>
                             <div class="zm-item-rich-text expandable js-collapse-body"
                                  data-resourceid="123114" data-action="/answer/content"
-                                 data-author-name="李淼"
+                                 data-author-name=""
                                  data-entry-url="/question/19857995/answer/13174385">
                                 <div class="zh-summary summary clearfix" th:utext="${vo.get('question').content}">
                                 </div>
@@ -71,7 +68,7 @@
                                        href="javascript:;" id="sfb-123114">
                                         <i class="z-icon-follow"></i>关注问题
                                     </a>
-                                    <a href="#" id="addcomment"
+                                    <a th:href="@{'/question/'+${vo.get('question').id}}" id="addcomment"
                                        class="meta-item toggle-comment js-toggleCommentBox"
                                        th:text="|${vo.get('question').commentCount} 条评论|">
                                         <i class="z-icon-comment"></i>

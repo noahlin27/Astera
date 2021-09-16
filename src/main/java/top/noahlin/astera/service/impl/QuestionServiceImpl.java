@@ -60,4 +60,9 @@ public class QuestionServiceImpl implements QuestionService {
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
     }
+
+    @Override
+    public int updateCommentCount(int id, int commentCount) {
+        return questionDAO.updateCommentCount(id, commentCount) > 0 ? id : 0;
+    }
 }
