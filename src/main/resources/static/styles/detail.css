@@ -3311,6 +3311,9 @@ html.touchevents .x-m,html.touchevents .x-e {
     padding:8px 0 3px;
     margin:0
 }
+.zm-item-answer .zm-item-rich-text{
+    white-space: pre-line;
+}
 .zm-item .zm-item-answer-author-info .zm-item-link-avatar {
     display:none
 }
@@ -3625,6 +3628,9 @@ html.no-touchevents .zm-item-meta>.zg-link-gray:hover {
 }
 #zh-question-title {
     margin:0 0 5px
+}
+#zh-question-detail {
+    white-space: pre-line;
 }
 .QuestionPage-titleButton {
     vertical-align:1px;

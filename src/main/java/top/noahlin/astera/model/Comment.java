@@ -6,8 +6,8 @@ public class Comment {
     private int id;
     private String content;
     private int userId;
-    private int entityId;
     private int entityType;
+    private int entityId;
     private Date createTime;
     private int status;
 
@@ -35,20 +35,20 @@ public class Comment {
         this.userId = userId;
     }
 
-    public int getEntityId() {
-        return entityId;
-    }
-
-    public void setEntityId(int entityId) {
-        this.entityId = entityId;
-    }
-
     public void setEntityType(int entityType) {
         this.entityType = entityType;
     }
 
     public Date getCreateTime() {
         return createTime;
+    }
+
+    public int getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(int entityId) {
+        this.entityId = entityId;
     }
 
     public void setCreateTime(Date createTime) {

@@ -59,7 +59,7 @@ public class SensitiveFilterUtil implements InitializingBean {
     }
 
     /**
-     * 从敏感词汇总文件读取敏感词
+     * 从敏感词文件读取敏感词
      * @throws Exception
      */
     @Override
@@ -92,7 +92,7 @@ public class SensitiveFilterUtil implements InitializingBean {
     }
 
     /**
-     * 将关键词字符串添加到字典树
+     * 将字符串添加到字典树
      * @param lineText
      */
     public void addKeyWord(String lineText) {

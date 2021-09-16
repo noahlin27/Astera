@@ -7,7 +7,7 @@ import top.noahlin.astera.util.SensitiveFilterUtil;
 
 import javax.annotation.Resource;
 
-@MapperScan("top.noahlin.astera.dao")
+//@MapperScan("top.noahlin.astera.dao")
 @SpringBootTest
 class AsteraApplicationTests {
 	@Resource
@@ -16,7 +16,7 @@ class AsteraApplicationTests {
 	@Test
 	void sensitiveFilterTest() {
     	String text = "坚决抵制毒品";
-
+		System.out.println(sensitiveFilterUtil.filter(text));
 
 	}
 
