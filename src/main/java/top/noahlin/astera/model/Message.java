@@ -60,7 +60,11 @@ public class Message {
     }
 
     public String getConversationId() {
-        return conversationId;
+        if (fromId < toId) {
+            return String.format("%d%d", fromId, toId);
+        } else {
+            return String.format("%d%d", toId, fromId);
+        }
     }
 
     public void setConversationId(String conversationId) {

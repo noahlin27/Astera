@@ -13,6 +13,11 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Override
+    public int addUser(User user) {
+        return userDAO.insert(user);
+    }
+
+    @Override
     public User getUser(int id) {
         return userDAO.selectById(id);
     }

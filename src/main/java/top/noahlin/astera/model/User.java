@@ -17,14 +17,6 @@ public class User {
     public User() {
     }
 
-    public User(String name) {
-        this.name = name;
-        this.password = "";
-        this.salt = "";
-        this.headUrl = "";
-        this.isDeleted = 0;
-    }
-
     public int getId() {
         return id;
     }

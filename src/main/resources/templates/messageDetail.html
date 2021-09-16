@@ -1,4 +1,9 @@
-#parse("header.html")
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" dropeffect="none" style=""
+      class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
+<head th:replace="header::head-fragment"></head>
+<body class="zhi">
+<div th:replace="header::nav-fragment(${user})"></div>
 <link rel="stylesheet" media="all" href="../styles/letter.css">
 <div id="main">
     <div class="zg-wrap zu-main clearfix ">
@@ -26,6 +31,8 @@
 
     </div>
 </div>
-#parse("js.html")
+<div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
-#parse("footer.html")
+<div th:replace="footer::footer-fragment"></div>
+</body>
+</html>
