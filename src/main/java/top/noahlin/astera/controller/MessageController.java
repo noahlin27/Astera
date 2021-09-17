@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.model.Message;
 import top.noahlin.astera.model.User;
+import top.noahlin.astera.model.ViewObject;
 import top.noahlin.astera.service.MessageService;
 import top.noahlin.astera.service.UserService;
 import top.noahlin.astera.util.JsonUtil;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,14 +39,14 @@ public class MessageController {
     public String addMessage(@RequestParam("toName") String toName,
                              @RequestParam("content") String content) {
         try {
-            if(hostHolder.getUser()==null){
+            if (hostHolder.getUser() == null) {
                 return JsonUtil.getJSONString(999, "未登录");
             }
             User user = userService.getUser(toName);
-            if(user == null){
+            if (user == null) {
                 return JsonUtil.getJSONString(1, "用户不存在");
             }
-            Message message =new Message();
+            Message message = new Message();
             message.setFromId(hostHolder.getUser().getId());
             message.setToId(user.getId());
             message.setContent(content);
@@ -51,7 +54,7 @@ public class MessageController {
 
             messageService.addMessage(message);
             return JsonUtil.getJSONString(0);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("发送消息失败" + e.getMessage());
             return JsonUtil.getJSONString(1, "发信失败");
         }
@@ -64,11 +67,27 @@ public class MessageController {
     }
 
     @GetMapping("/msg/detail")
-    public String getMessageDetail(@RequestParam("conversationId") String conversationId){
+    public String getMessageDetail(@RequestParam("conversationId") String conversationId,
+                                   HttpServletRequest request) {
         try {
-            List<Message> messageList = messageService.getMessageList(conversationId, 0, 10);
-        }catch (Exception e){
-            logger.error("获取消息详情失败"+e.getMessage());
+            List<Message> messageList = messageService.getMessageList(conversationId);
+            List<ViewObject> vos = new ArrayList<>();
+            for (Message message : messageList) {
+
+
+                if (hostHolder.getUser().getId() != message.getToId() && hostHolder.getUser().getId() != message.getFromId()) {
+                    throw new Exception("asd");
+                }
+
+
+                ViewObject vo = new ViewObject();
+                vo.set("message", message);
+                vo.set("user", userService.getUser(message.getFromId()));
+                vos.add(vo);
+            }
+            request.setAttribute("vos", vos);
+        } catch (Exception e) {
+            logger.error("获取消息详情失败" + e.getMessage());
         }
         return "messageDetail";
     }

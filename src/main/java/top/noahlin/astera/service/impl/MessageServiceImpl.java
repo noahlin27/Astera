@@ -20,11 +20,23 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public int addMessage(Message message) {
         message.setContent(sensitiveFilterUtil.filter(message.getContent()));
+        int fromId = message.getFromId();
+        int toId = message.getToId();
+        if (fromId < toId) {
+            message.setConversationId(String.format("%d_%d", fromId, toId));
+        } else {
+            message.setConversationId(String.format("%d_%d", toId, fromId));
+        }
         return messageDAO.insert(message) > 0 ? message.getId() : 0;
     }
 
     @Override
-    public List<Message> getMessageList(String conversationId, int offset, int limit) {
-        return  messageDAO.selectLatest(conversationId, offset, limit);
+    public List<Message> getMessageList(String conversationId) {
+        return  messageDAO.selectLatest(conversationId, 0, 10);
+    }
+
+    @Override
+    public List<Message> getConversationList(int userId) {
+        return messageDAO.selectConversations(userId, 0, 10);
     }
 }

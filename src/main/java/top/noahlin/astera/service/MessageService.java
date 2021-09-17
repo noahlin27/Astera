@@ -7,5 +7,7 @@ import java.util.List;
 public interface MessageService {
     int addMessage(Message message);
 
-    List<Message> getMessageList(String conversationId, int offset, int limit);
+    List<Message> getMessageList(String conversationId);
+
+    List<Message> getConversationList(int userId);
 }

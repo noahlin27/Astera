@@ -20,11 +20,12 @@ public interface MessageDAO {
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
     Comment selectById(int id);
 
-    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where conversation_id=#{conversationId} order by created_time desc limit #{offset}, #{limit}"})
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where conversation_id=#{conversationId} order by create_time desc limit #{offset}, #{limit}"})
     List<Message> selectLatest(@Param("conversationId") String conversationId, @Param("offset") int offset, @Param("limit") int limit);
 
-    @Select({"select count(id) from", TABLE_NAME, "where entity_id=#{entityId} and entity_type=#{entityType}"})
-    int selectCommentCount(@Param("entityId") int entityId, @Param("entityType") int entityType);
+    @Select({"select count(id) as id from (select * from", TABLE_NAME, "where from_id=#{userId} or to_id=#{userId} order by create_time desc) " +
+            "group by conversation_id order by create_time desc limit #{offset}, #{limit}"})
+    List<Message> selectConversations(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
 
     @Update({"update comment set status=#{status} where id=#{id}"})
     int updateStatus(@Param("id") int id, @Param("status") int status);
