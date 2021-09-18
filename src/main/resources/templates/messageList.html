@@ -8,40 +8,31 @@
 <div id="main">
     <div class="zg-wrap zu-main clearfix ">
         <ul class="letter-list">
-            #foreach($conversation in $conversations)
-            <li id="conversation-item-10005_622873">
-                <a class="letter-link" href="/msg/detail?conversationId=$conversation.message.conversationId"></a>
+            <li th:each="conversationVO:${vos}" id="conversation-item-10005_622873">
                 <div class="letter-info">
-                    <span class="l-time">$data.format('yyyy-MM-dd HH:mm:ss', $conversation.message.createdDate)</span>
+                    <span class="l-time"
+                          th:text="${#dates.format(conversationVO.get('conversation').createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
                     <div class="l-operate-bar">
                         <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
                         删除
                         </a>-->
-                        <a href="/msg/detail?$conversation.message.conversationId">
-                            共$conversation.message.id条会话
-                        </a>
+                        <a th:href="@{'/msg/detail?conversationId='+${conversationVO.get('conversation').conversationId}}"
+                           th:text="|共${conversationVO.get('conversation').id}条会话|"></a>
                     </div>
                 </div>
                 <div class="chat-headbox">
-                        <span class="msg-num">
-                            $conversation.unread
-                        </span>
-                    <a class="list-head">
-                        <img alt="头像" src="$conversation.user.headUrl">
+                        <span class="msg-num" th:text="${conversationVO.get('unread')}"></span>
+                    <a class="list-head" th:href="@{'/user/'+${conversationVO.get('user').name}}">
+                        <img alt="头像" th:src="${conversationVO.get('user').headUrl}">
                     </a>
                 </div>
                 <div class="letter-detail">
-                    <a title="通知" class="letter-name level-color-1">
-                        $conversation.user.name
-                    </a>
-                    <p class="letter-brief">
-                        $conversation.message.content
-                    </p>
+                    <a title="通知" class="letter-name level-color-1" th:text="${conversationVO.get('user').name}"
+                       th:href="@{'/user/'+${conversationVO.get('user').name}}"></a>
+                    <a class="letter-brief" th:utext="${conversationVO.get('conversation').content}" th:href="@{'/msg/detail?conversationId='+${conversationVO.get('conversation').conversationId}}"></a>
                 </div>
             </li>
-            #end
         </ul>
-
     </div>
 </div>
 <div th:replace="js::js-fragment"></div>

@@ -61,8 +61,22 @@ public class MessageController {
     }
 
     @GetMapping("/msg/list")
-    public String getMessageList() {
-
+    public String getMessageList(HttpServletRequest request) {
+        if (hostHolder.getUser() == null) {
+            return "redirect:/reglogin";
+        }
+        int localUserId = hostHolder.getUser().getId();
+        List<Message> conversationList = messageService.getConversationList((localUserId));
+        List<ViewObject> conversationVO = new ArrayList<>();
+        for (Message message : conversationList) {
+            ViewObject vo = new ViewObject();
+            vo.set("conversation", message);
+            int targetId = message.getFromId() == localUserId ? message.getToId() : message.getFromId();
+            vo.set("user", userService.getUser(targetId));
+            vo.set("unread", messageService.getUnreadCount(localUserId, message.getConversationId()));
+            conversationVO.add(vo);
+        }
+        request.setAttribute("vos", conversationVO);
         return "messageList";
     }
 
@@ -70,16 +84,15 @@ public class MessageController {
     public String getMessageDetail(@RequestParam("conversationId") String conversationId,
                                    HttpServletRequest request) {
         try {
+            if (hostHolder.getUser() == null) {
+                return "redirect:/reglogin";
+            }
             List<Message> messageList = messageService.getMessageList(conversationId);
             List<ViewObject> vos = new ArrayList<>();
             for (Message message : messageList) {
-
-
                 if (hostHolder.getUser().getId() != message.getToId() && hostHolder.getUser().getId() != message.getFromId()) {
-                    throw new Exception("asd");
+                    throw new Exception();
                 }
-
-
                 ViewObject vo = new ViewObject();
                 vo.set("message", message);
                 vo.set("user", userService.getUser(message.getFromId()));

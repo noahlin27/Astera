@@ -22,11 +22,7 @@ public class MessageServiceImpl implements MessageService {
         message.setContent(sensitiveFilterUtil.filter(message.getContent()));
         int fromId = message.getFromId();
         int toId = message.getToId();
-        if (fromId < toId) {
-            message.setConversationId(String.format("%d_%d", fromId, toId));
-        } else {
-            message.setConversationId(String.format("%d_%d", toId, fromId));
-        }
+        message.setConversationId(fromId<toId ? String.format("%d_%d", fromId, toId) : String.format("%d_%d", toId, fromId));
         return messageDAO.insert(message) > 0 ? message.getId() : 0;
     }
 
@@ -38,5 +34,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getConversationList(int userId) {
         return messageDAO.selectConversations(userId, 0, 10);
+    }
+
+    @Override
+    public int getUnreadCount(int userId, String conversationId) {
+        return messageDAO.selectCountUnread(userId, conversationId);
     }
 }
