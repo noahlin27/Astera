@@ -1,4 +1,4 @@
-package top.noahlin.astera.util.aspect;
+package top.noahlin.astera.util;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
