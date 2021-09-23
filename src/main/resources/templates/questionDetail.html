@@ -62,23 +62,23 @@
                     <meta itemprop="answer-url-token" content="66862039">
                     <a class="zg-anchor-hidden" id="answer-22162611"></a>
 
-                    <div class="zm-votebar goog-scrollfloater js-vote" data-id="$!{comment.comment.id}">
-                        <button th:if="${commentVO.get('user').id}>=0" class="up js-like pressed" title="赞同">
+                    <div class="zm-votebar goog-scrollfloater js-vote">
+                        <button th:if="${commentVO.get('likeStatus')}>0" class="up js-like pressed" title="赞同">
                             <i class="icon vote-arrow"></i>
-                            <span class="count js-voteCount" th:text="${commentVO.get('user').id}"></span>
+                            <span class="count js-voteCount" th:text="${commentVO.get('likeCount')}"></span>
                             <span class="label sr-only">赞同</span>
                         </button>
-                        <button th:if="${commentVO.get('user').id}<0" class="up js-like" title="赞同">
+                        <button th:if="${commentVO.get('likeStatus')}<=0" class="up js-like" title="赞同">
                             <i class="icon vote-arrow"></i>
-                            <span class="count js-voteCount" th:text="${commentVO.get('user').id}"></span>
+                            <span class="count js-voteCount" th:text="${commentVO.get('likeCount')}"></span>
                             <span class="label sr-only">赞同</span>
                         </button>
 
-                        <button th:if="${commentVO.get('user').id}<0" class="down js-dislike pressed" title="反对，不会显示你的姓名">
+                        <button th:if="${commentVO.get('likeStatus')}<0" class="down js-dislike pressed" title="反对，不会显示你的姓名">
                             <i class="icon vote-arrow"></i>
                             <span class="label sr-only">反对，不会显示你的姓名</span>
                         </button>
-                        <button th:if="${commentVO.get('user').id}>=0" class="down js-dislike" title="反对，不会显示你的姓名">
+                        <button th:if="${commentVO.get('likeStatus')}>=0" class="down js-dislike" title="反对，不会显示你的姓名">
                             <i class="icon vote-arrow"></i>
                             <span class="label sr-only">反对，不会显示你的姓名</span>
                         </button>
@@ -91,7 +91,7 @@
                         </div>
                         <div class="zm-item-vote-info">
                                 <span class="voters text">
-                                    <a href="" class="more text"><span class="js-voteCount">$!{comment.likeCount}</span>&nbsp;人赞同</a>
+                                    <a href="" class="more text"><span class="js-voteCount" th:text="${commentVO.get('likeCount')}"></span>&nbsp;赞同</a>
                                 </span>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <a name="draft"></a>
+            <a id="draft"></a>
 
             <form action="/addComment" method="post">
                 <input type="hidden" name="questionId" th:value="${questionVO.get('question').id}"/>

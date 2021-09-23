@@ -23,6 +23,7 @@ public class LikeServiceImpl implements LikeService {
         return jedisAdaptor.scard(likeKey);
     }
 
+    @Override
     public long dislike(int userId, int entityType, int entityId) {
         String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
         jedisAdaptor.srem(likeKey, String.valueOf(userId));
@@ -30,6 +31,22 @@ public class LikeServiceImpl implements LikeService {
         String dislikeKey = RedisKeyUtil.getDisikeKey(entityType, entityId);
         jedisAdaptor.sadd(dislikeKey, String.valueOf(userId));
 
+        return jedisAdaptor.scard(likeKey);
+    }
+
+    @Override
+    public int getLikeStatus(int userId, int entityType, int entityId) {
+        String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
+        if (jedisAdaptor.sismember(likeKey, String.valueOf(userId))) {
+            return 1;
+        }
+        String dislikeKey = RedisKeyUtil.getDisikeKey(entityType, entityId);
+        return jedisAdaptor.sismember(dislikeKey, String.valueOf(userId)) ? -1 : 0;
+    }
+
+    @Override
+    public long getLikeCount(int entityType, int entityId) {
+        String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
         return jedisAdaptor.scard(likeKey);
     }
 }

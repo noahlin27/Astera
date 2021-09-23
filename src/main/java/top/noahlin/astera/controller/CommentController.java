@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import top.noahlin.astera.common.CommentEntityTypeEnum;
+import top.noahlin.astera.common.EntityTypeEnum;
 import top.noahlin.astera.model.Comment;
 import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.service.CommentService;
@@ -33,7 +33,7 @@ public class CommentController {
             Comment comment = new Comment();
             comment.setContent(content);
             comment.setUserId(hostHolder.getUser().getId());
-            comment.setEntityType(CommentEntityTypeEnum.ENTITY_QUESTION.getTypeId());
+            comment.setEntityType(EntityTypeEnum.ENTITY_QUESTION.getTypeId());
             comment.setEntityId(questionId);
             comment.setCreateTime(new Date());
             commentService.addComment(comment);

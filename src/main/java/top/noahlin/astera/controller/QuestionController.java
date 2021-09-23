@@ -4,12 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import top.noahlin.astera.common.CommentEntityTypeEnum;
+import top.noahlin.astera.common.EntityTypeEnum;
 import top.noahlin.astera.model.Comment;
 import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.ViewObject;
 import top.noahlin.astera.service.CommentService;
+import top.noahlin.astera.service.LikeService;
 import top.noahlin.astera.service.QuestionService;
 import top.noahlin.astera.service.UserService;
 import top.noahlin.astera.util.JsonUtil;
@@ -32,6 +33,9 @@ public class QuestionController {
 
     @Resource
     UserService userService;
+
+    @Resource
+    LikeService likeService;
 
     @Resource
     HostHolder hostHolder;
@@ -69,15 +73,21 @@ public class QuestionController {
         questionVO.set("question", question);
         request.setAttribute("questionVO", questionVO);
 
-        List<Comment> comments = commentService.getCommentsByEntity(id, CommentEntityTypeEnum.ENTITY_QUESTION.getTypeId());
+        List<Comment> comments = commentService.getCommentsByEntity(id, EntityTypeEnum.ENTITY_QUESTION.getTypeId());
         List<ViewObject> vos = new ArrayList<>();
         for (Comment comment: comments){
             ViewObject commentVO = new ViewObject();
             commentVO.set("comment", comment);
+            if (hostHolder.getUser()==null){
+                commentVO.set("likeStatus", 0);
+            }else {
+                commentVO.set("likeStatus", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityTypeEnum.ENTITY_COMMENT.getTypeId(), comment.getId()));
+            }
+            commentVO.set("likeCount", likeService.getLikeCount(EntityTypeEnum.ENTITY_COMMENT.getTypeId(), comment.getId()));
             commentVO.set("user", userService.getUser(comment.getUserId()));
             vos.add(commentVO);
         }
         request.setAttribute("vos", vos);
-        return "detail";
+        return "questionDetail";
     }
 }

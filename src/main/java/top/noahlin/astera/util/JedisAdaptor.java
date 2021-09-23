@@ -1,11 +1,13 @@
 package top.noahlin.astera.util;
 
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Component
 public class JedisAdaptor implements InitializingBean {
@@ -15,20 +17,15 @@ public class JedisAdaptor implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        pool = new JedisPool("127.0.0.1", 6379);
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        pool = new JedisPool(poolConfig,"127.0.0.1", 6379, 2000, "", 0);
     }
 
     public long sadd(String key, String value) {
-        Jedis jedis = null;
-        try {
-            jedis = pool.getResource();
+        try (Jedis jedis = pool.getResource()) {
             jedis.sadd(key, value);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
-        } finally {
-            if (jedis != null) {
-                jedis.close();
-            }
         }
         return 0;
     }
@@ -63,7 +60,7 @@ public class JedisAdaptor implements InitializingBean {
         return 0;
     }
 
-    public long sismember(String key, String value) {
+    public boolean sismember(String key, String value) {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
@@ -75,6 +72,6 @@ public class JedisAdaptor implements InitializingBean {
                 jedis.close();
             }
         }
-        return 0;
+        return false;
     }
 }
