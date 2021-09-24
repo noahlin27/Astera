@@ -33,14 +33,18 @@
                  th:utext="${questionVO.get('question').content}"></div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
-                    <button th:if="${not #strings.isEmpty(questionVO)}" class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
+                    <button th:if="${not #strings.isEmpty(questionVO)}"
+                            class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
                             data-status="1">取消关注
                     </button>
-                    <button th:if="${#strings.isEmpty(questionVO)}" class="follow-button zg-follow zg-btn-green js-follow-question" data-id="${question.id}">关注问题
+                    <button th:if="${#strings.isEmpty(questionVO)}"
+                            class="follow-button zg-follow zg-btn-green js-follow-question" data-id="${question.id}">
+                        关注问题
                     </button>
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
-                            <a href="javascript:void(0);"><strong class="js-user-count" th:text="${questionVO.get('question').commentCount}"></strong></a>人关注该问题
+                            <a href="javascript:void(0);"><strong class="js-user-count"
+                                                                  th:text="${questionVO.get('question').commentCount}"></strong></a>人关注该问题
                         </div>
                         <div class="list zu-small-avatar-list zg-clear js-user-list">
                             #foreach($vo in $followUsers)
@@ -61,41 +65,51 @@
                     <meta itemprop="answer-id" content="22162611">
                     <meta itemprop="answer-url-token" content="66862039">
                     <a class="zg-anchor-hidden" id="answer-22162611"></a>
-
                     <div class="zm-votebar goog-scrollfloater js-vote">
-                        <button th:if="${commentVO.get('likeStatus')}>0" class="up js-like pressed" title="赞同">
-                            <i class="icon vote-arrow"></i>
-                            <span class="count js-voteCount" th:text="${commentVO.get('likeCount')}"></span>
-                            <span class="label sr-only">赞同</span>
-                        </button>
-                        <button th:if="${commentVO.get('likeStatus')}<=0" class="up js-like" title="赞同">
-                            <i class="icon vote-arrow"></i>
-                            <span class="count js-voteCount" th:text="${commentVO.get('likeCount')}"></span>
-                            <span class="label sr-only">赞同</span>
-                        </button>
-
-                        <button th:if="${commentVO.get('likeStatus')}<0" class="down js-dislike pressed" title="反对，不会显示你的姓名">
-                            <i class="icon vote-arrow"></i>
-                            <span class="label sr-only">反对，不会显示你的姓名</span>
-                        </button>
-                        <button th:if="${commentVO.get('likeStatus')}>=0" class="down js-dislike" title="反对，不会显示你的姓名">
-                            <i class="icon vote-arrow"></i>
-                            <span class="label sr-only">反对，不会显示你的姓名</span>
-                        </button>
+                        <form id="like" method="post">
+                            <input type="hidden" name="commentId" th:value="${commentVO.get('comment').id}">
+                            <button th:if="${commentVO.get('likeStatus')}>0" class="up js-like pressed" title="赞同"
+                                    onclick="form.action='/like/'">
+                                <i class="icon vote-arrow"></i>
+                                <span class="count js-voteCount" th:text="${commentVO.get('likeCount')}"></span>
+                                <span class="label sr-only">赞同</span>
+                            </button>
+                            <button th:if="${commentVO.get('likeStatus')}<=0" class="up js-like" title="赞同">
+                                <i class="icon vote-arrow"></i>
+                                <span class="count js-voteCount" th:text="${commentVO.get('likeCount')}"></span>
+                                <span class="label sr-only">赞同</span>
+                            </button>
+                            <button th:if="${commentVO.get('likeStatus')}<0" class="down js-dislike pressed"
+                                    title="反对，不会显示你的姓名">
+                                <i class="icon vote-arrow"></i>
+                                <span class="label sr-only">反对，不会显示你的姓名</span>
+                            </button>
+                            <button th:if="${commentVO.get('likeStatus')}>=0" class="down js-dislike"
+                                    title="反对，不会显示你的姓名">
+                                <i class="icon vote-arrow"></i>
+                                <span class="label sr-only">反对，不会显示你的姓名</span>
+                            </button>
+                        </form>
                     </div>
                     <div class="answer-head">
                         <div class="zm-item-answer-author-info">
-                            <a class="zm-item-link-avatar avatar-link" href="" target="_blank" data-tip="p$t$yingxiaodao">
+                            <a class="zm-item-link-avatar avatar-link" href="" target="_blank"
+                               data-tip="p$t$yingxiaodao">
                                 <img th:src="${commentVO.get('user').headUrl}" class="zm-list-avatar avatar"></a>
-                            <a class="author-link" data-tip="p$t$yingxiaodao" target="_blank" th:href="@{'/user/'+${commentVO.get('user').name}}" th:text="${commentVO.get('user').name}"></a>
+                            <a class="author-link" data-tip="p$t$yingxiaodao" target="_blank"
+                               th:href="@{'/user/'+${commentVO.get('user').name}}"
+                               th:text="${commentVO.get('user').name}"></a>
                         </div>
                         <div class="zm-item-vote-info">
                                 <span class="voters text">
-                                    <a href="" class="more text"><span class="js-voteCount" th:text="${commentVO.get('likeCount')}"></span>&nbsp;赞同</a>
+                                    <a href="" class="more text"><span class="js-voteCount"
+                                                                       th:text="${commentVO.get('likeCount')}"></span>&nbsp;赞同</a>
                                 </span>
                         </div>
                     </div>
-                    <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688" data-action="/answer/content" data-author-name="营销岛" data-entry-url="/question/36301524/answer/66862039" th:utext="${commentVO.get('comment').content}"></div>
+                    <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688"
+                         data-action="/answer/content" data-entry-url="/question/36301524/answer/66862039"
+                         th:utext="${commentVO.get('comment').content}"></div>
                     <a class="zg-anchor-hidden ac" id="22162611-comment"></a>
                     <div class="zm-item-meta answer-actions clearfix js-contentActions">
                         <div class="zm-meta-panel">
@@ -105,7 +119,8 @@
                                 <i class="z-icon-comment"></i>4 条评论</a>
 
                             <button class="item-collapse js-collapse" style="transition: none;">
-                                <i class="z-icon-fold"></i>收起</button>
+                                <i class="z-icon-fold"></i>收起
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -114,20 +129,21 @@
 
             <form action="/addComment" method="post">
                 <input type="hidden" name="questionId" th:value="${questionVO.get('question').id}"/>
-            <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
-                <div class="zm-editable-editor-wrap" style="">
-                    <div class="zm-editable-editor-outer">
-                        <div class="zm-editable-editor-field-wrap">
-                            <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="width:100%;"></textarea>
+                <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
+                    <div class="zm-editable-editor-wrap" style="">
+                        <div class="zm-editable-editor-outer">
+                            <div class="zm-editable-editor-field-wrap">
+                                <textarea name="content" id="content" class="zm-editable-editor-field-element editable"
+                                          style="width:100%;"></textarea>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="zm-command clearfix">
+                        <div class="zm-command clearfix">
                             <span class=" zg-right">
                                 <button type="submit" class="submit-button zg-btn-blue">发布回答</button></span>
+                        </div>
                     </div>
                 </div>
-            </div>
             </form>
 
         </div>
