@@ -65,11 +65,8 @@
                     <meta itemprop="answer-id" content="22162611">
                     <meta itemprop="answer-url-token" content="66862039">
                     <a class="zg-anchor-hidden" id="answer-22162611"></a>
-                    <div class="zm-votebar goog-scrollfloater js-vote">
-                        <form id="like" method="post">
-                            <input type="hidden" name="commentId" th:value="${commentVO.get('comment').id}">
-                            <button th:if="${commentVO.get('likeStatus')}>0" class="up js-like pressed" title="赞同"
-                                    onclick="form.action='/like/'">
+                    <div class="zm-votebar goog-scrollfloater js-vote" th:attr="data-id=${commentVO.get('comment').id}" >
+                            <button th:if="${commentVO.get('likeStatus')}>0" class="up js-like pressed" title="赞同">
                                 <i class="icon vote-arrow"></i>
                                 <span class="count js-voteCount" th:text="${commentVO.get('likeCount')}"></span>
                                 <span class="label sr-only">赞同</span>
@@ -89,7 +86,6 @@
                                 <i class="icon vote-arrow"></i>
                                 <span class="label sr-only">反对，不会显示你的姓名</span>
                             </button>
-                        </form>
                     </div>
                     <div class="answer-head">
                         <div class="zm-item-answer-author-info">

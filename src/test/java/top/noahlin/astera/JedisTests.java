@@ -8,6 +8,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ListPosition;
 import redis.clients.jedis.Tuple;
 import top.noahlin.astera.util.JedisAdaptor;
+import top.noahlin.astera.util.RedisKeyUtil;
 
 import javax.annotation.Resource;
 
@@ -173,7 +174,8 @@ public class JedisTests {
 
     @Test
     public void poolTests(){
-        jedisAdaptor.sadd("key1", "value1");
+        String likeKey = RedisKeyUtil.getLikeKey(3,9);
+        System.out.println(jedisAdaptor.scard(likeKey));
 
     }
 }

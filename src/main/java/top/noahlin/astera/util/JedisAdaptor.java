@@ -25,7 +25,7 @@ public class JedisAdaptor implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            jedis.sadd(key, value);
+            return jedis.sadd(key, value);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
         } finally {
@@ -40,7 +40,7 @@ public class JedisAdaptor implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            jedis.srem(key, value);
+            return jedis.srem(key, value);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
         } finally {
@@ -55,7 +55,7 @@ public class JedisAdaptor implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            jedis.scard(key);
+            return jedis.scard(key);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
         } finally {
@@ -70,7 +70,7 @@ public class JedisAdaptor implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = pool.getResource();
-            jedis.sismember(key, value);
+            return jedis.sismember(key, value);
         } catch (Exception e) {
             logger.error("发生异常" + e.getMessage());
         } finally {

@@ -17,21 +17,35 @@ public class LikeServiceImpl implements LikeService {
         String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
         jedisAdaptor.sadd(likeKey, String.valueOf(userId));
 
-        String dislikeKey = RedisKeyUtil.getDisikeKey(entityType, entityId);
-        jedisAdaptor.srem(dislikeKey, String.valueOf(userId));
+        dislikeCancel(userId, entityType, entityId);
+
+        return jedisAdaptor.scard(likeKey);
+    }
+
+    @Override
+    public long likeCancel(int userId, int entityType, int entityId){
+        String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
+        jedisAdaptor.srem(likeKey, String.valueOf(userId));
 
         return jedisAdaptor.scard(likeKey);
     }
 
     @Override
     public long dislike(int userId, int entityType, int entityId) {
-        String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
-        jedisAdaptor.srem(likeKey, String.valueOf(userId));
+        dislikeCancel(userId, entityType, entityId);
 
-        String dislikeKey = RedisKeyUtil.getDisikeKey(entityType, entityId);
+        String dislikeKey = RedisKeyUtil.getDislikeKey(entityType, entityId);
         jedisAdaptor.sadd(dislikeKey, String.valueOf(userId));
 
-        return jedisAdaptor.scard(likeKey);
+        return jedisAdaptor.scard(RedisKeyUtil.getLikeKey(entityType, entityId));
+    }
+
+    @Override
+    public long dislikeCancel(int userId, int entityType, int entityId){
+        String dislikeKey = RedisKeyUtil.getDislikeKey(entityType, entityId);
+        jedisAdaptor.srem(dislikeKey, String.valueOf(userId));
+
+        return jedisAdaptor.scard(RedisKeyUtil.getLikeKey(entityType, entityId));
     }
 
     @Override
@@ -40,7 +54,7 @@ public class LikeServiceImpl implements LikeService {
         if (jedisAdaptor.sismember(likeKey, String.valueOf(userId))) {
             return 1;
         }
-        String dislikeKey = RedisKeyUtil.getDisikeKey(entityType, entityId);
+        String dislikeKey = RedisKeyUtil.getDislikeKey(entityType, entityId);
         return jedisAdaptor.sismember(dislikeKey, String.valueOf(userId)) ? -1 : 0;
     }
 
