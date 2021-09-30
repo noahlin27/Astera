@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import top.noahlin.astera.config.RedisConfig;
+import top.noahlin.astera.common.RedisConfig;
 
 @Component
 public class JedisAdaptor implements InitializingBean {

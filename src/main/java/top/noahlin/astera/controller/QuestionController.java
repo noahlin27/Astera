@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import top.noahlin.astera.common.EntityTypeEnum;
+import top.noahlin.astera.common.EntityType;
 import top.noahlin.astera.model.Comment;
 import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.model.Question;
@@ -73,7 +73,7 @@ public class QuestionController {
         questionVO.set("question", question);
         request.setAttribute("questionVO", questionVO);
 
-        List<Comment> comments = commentService.getCommentsByEntity(id, EntityTypeEnum.ENTITY_QUESTION.getTypeId());
+        List<Comment> comments = commentService.getCommentsByEntity(id, EntityType.ENTITY_QUESTION.getTypeId());
         List<ViewObject> vos = new ArrayList<>();
         for (Comment comment: comments){
             ViewObject commentVO = new ViewObject();
@@ -81,9 +81,9 @@ public class QuestionController {
             if (hostHolder.getUser()==null){
                 commentVO.set("likeStatus", 0);
             }else {
-                commentVO.set("likeStatus", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityTypeEnum.ENTITY_COMMENT.getTypeId(), comment.getId()));
+                commentVO.set("likeStatus", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT.getTypeId(), comment.getId()));
             }
-            commentVO.set("likeCount", likeService.getLikeCount(EntityTypeEnum.ENTITY_COMMENT.getTypeId(), comment.getId()));
+            commentVO.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT.getTypeId(), comment.getId()));
             commentVO.set("user", userService.getUser(comment.getUserId()));
             vos.add(commentVO);
         }

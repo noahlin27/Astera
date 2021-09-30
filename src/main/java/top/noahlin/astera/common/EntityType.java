@@ -1,6 +1,6 @@
 package top.noahlin.astera.common;
 
-public enum EntityTypeEnum {
+public enum EntityType {
     ENTITY_USER(1, "user"),
     ENTITY_QUESTION(2, "question"),
     ENTITY_COMMENT(3, "comment");
@@ -8,7 +8,7 @@ public enum EntityTypeEnum {
     private int typeId;
     private String typeName;
 
-    EntityTypeEnum(int typeId, String typeName) {
+    EntityType(int typeId, String typeName) {
         this.typeId = typeId;
         this.typeName = typeName;
     }

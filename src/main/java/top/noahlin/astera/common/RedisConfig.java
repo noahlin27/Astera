@@ -1,4 +1,4 @@
-package top.noahlin.astera.config;
+package top.noahlin.astera.common;
 
 public class RedisConfig {
     public static final int maxTotal = 8;

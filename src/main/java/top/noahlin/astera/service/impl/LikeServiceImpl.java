@@ -32,7 +32,7 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public long dislike(int userId, int entityType, int entityId) {
-        dislikeCancel(userId, entityType, entityId);
+        likeCancel(userId, entityType, entityId);
 
         String dislikeKey = RedisKeyUtil.getDislikeKey(entityType, entityId);
         jedisAdaptor.sadd(dislikeKey, String.valueOf(userId));
