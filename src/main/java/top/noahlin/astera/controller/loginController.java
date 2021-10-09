@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.commons.lang3.StringUtils;
+import top.noahlin.astera.async.Event;
+import top.noahlin.astera.async.EventProducer;
+import top.noahlin.astera.async.EventType;
 import top.noahlin.astera.service.LoginService;
 
 import javax.annotation.Resource;
@@ -18,6 +21,9 @@ import java.util.Map;
 public class loginController {
     @Resource
     LoginService loginService;
+
+    @Resource
+    EventProducer eventProducer;
 
     @GetMapping("/reglogin")
     public String login(HttpServletRequest request,
@@ -59,6 +65,12 @@ public class loginController {
                 Cookie cookie = new Cookie("ticket", map.get("ticket"));
                 cookie.setPath("/");
                 response.addCookie(cookie);
+
+                eventProducer.fireEvent(new Event(EventType.LOGIN).
+                        setActorId(Integer.parseInt(map.get("userId"))).
+                        setExt("username", username).
+                        setExt("email", "noahlin27@qq.com"));
+
                 if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next;
                 }

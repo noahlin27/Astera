@@ -9,8 +9,13 @@ public class Event {
     private int entityType;
     private int entityId;
     private int entityOwnerId;
-
     private Map<String, String> exts = new HashMap<>();
+
+    public Event(){}
+
+    public Event(EventType type){
+        this.type=type;
+    }
 
     public String getExt(String key){
         return exts.get(key);

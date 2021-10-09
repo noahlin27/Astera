@@ -86,7 +86,7 @@ public class LoginServiceImpl implements LoginService {
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(userId);
         Date now = new Date();
-        now.setTime(now.getTime()+3600*1000);
+        now.setTime(now.getTime()+3600*1000*24);
         loginTicket.setExpired(now);
         loginTicket.setStatus(0);
         loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));

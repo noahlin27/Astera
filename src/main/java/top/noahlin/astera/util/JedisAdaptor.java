@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.ScanResult;
 import top.noahlin.astera.common.RedisConfig;
 
 import java.util.List;

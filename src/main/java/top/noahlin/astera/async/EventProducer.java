@@ -1,6 +1,6 @@
 package top.noahlin.astera.async;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Service;
 import top.noahlin.astera.util.JedisAdaptor;
 import top.noahlin.astera.util.RedisKeyUtil;
@@ -14,7 +14,7 @@ public class EventProducer {
 
     public boolean fireEvent(Event event){
         try {
-            String json = JSONObject.toJSONString(event);
+            String json = JSON.toJSONString(event);
             String key = RedisKeyUtil.getEventQueueKey();
             jedisAdaptor.lpush(key, json);
             return true;
