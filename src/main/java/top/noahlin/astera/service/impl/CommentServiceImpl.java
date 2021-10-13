@@ -41,8 +41,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public int getCommentCount(int entityId, int entityType) {
-        return commentDAO.selectCommentCount(entityId, entityType);
+    public int getCommentCount(int entityType, int entityId) {
+        return commentDAO.selectCommentCount(entityType, entityId);
     }
 
     @Override

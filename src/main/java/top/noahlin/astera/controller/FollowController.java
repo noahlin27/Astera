@@ -125,27 +125,33 @@ public class FollowController {
         return JsonUtil.getJSONString(ret ? 0 : 1, info);
     }
 
-    @GetMapping("/user/{userId}/followers")
-    public String followers(@PathVariable("userId") int userId, HttpServletRequest request) {
-        List<Integer> followersIds = followService.getFollowers(userId, EntityType.ENTITY_USER.getTypeId(),
+    @GetMapping("/user/{userName}/followers")
+    public String followers(@PathVariable("userName") String userName, HttpServletRequest request) {
+        User user = userService.getUser(userName);
+        List<Integer> followersIds = followService.getFollowers(EntityType.ENTITY_USER.getTypeId(), user.getId(),
                 10);
         if(hostHolder.getUser() != null){
             request.setAttribute("followers", getUserInfo(hostHolder.getUser().getId(), followersIds));
         }else {
             request.setAttribute("followers", getUserInfo(0, followersIds));
         }
+        request.setAttribute("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER.getTypeId(), user.getId()));
+        request.setAttribute("curUser", userService.getUser(user.getId()));
         return "followers";
     }
 
-    @GetMapping("/user/{userId}/followees")
-    public String followees(@PathVariable("userId") int userId, HttpServletRequest request) {
-        List<Integer> followeesIds = followService.getFollowers(userId, EntityType.ENTITY_USER.getTypeId(),
+    @GetMapping("/user/{userName}/followees")
+    public String followees(@PathVariable("userName") String userName, HttpServletRequest request) {
+        User user = userService.getUser(userName);
+        List<Integer> followeesIds = followService.getFollowers(user.getId(), EntityType.ENTITY_USER.getTypeId(),
                 10);
         if(hostHolder.getUser() != null){
             request.setAttribute("followees", getUserInfo(hostHolder.getUser().getId(), followeesIds));
         }else {
             request.setAttribute("followees", getUserInfo(0, followeesIds));
         }
+        request.setAttribute("followeeCount", followService.getFolloweeCount(EntityType.ENTITY_USER.getTypeId(), user.getId()));
+        request.setAttribute("curUser", userService.getUser(user.getId()));
         return "followees";
     }
 

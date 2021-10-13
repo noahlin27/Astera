@@ -38,7 +38,7 @@ public class CommentController {
             comment.setCreateTime(new Date());
             commentService.addComment(comment);
 
-            questionService.updateCommentCount(comment.getEntityId(), commentService.getCommentCount(comment.getEntityId(), comment.getEntityType()));
+            questionService.updateCommentCount(comment.getEntityId(), commentService.getCommentCount( comment.getEntityType(), comment.getEntityId()));
         } catch (Exception e) {
             logger.error("增加评论失败"+e.getMessage());
         }

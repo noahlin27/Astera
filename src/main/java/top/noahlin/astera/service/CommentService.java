@@ -11,7 +11,7 @@ public interface CommentService {
 
     Comment getComment(int id);
 
-    int getCommentCount(int entityId, int entityType);
+    int getCommentCount(int entityType, int entityId);
 
     int deleteComment(int commentId);
 }
