@@ -1,10 +1,17 @@
 package top.noahlin.astera.util;
 
+import javax.xml.transform.sax.SAXResult;
+
 public class RedisKeyUtil {
     private static final String SPLIT = ":";
     private static final String LIKE = "LIKE";
     private static final String DISLIKE = "DISLIKE";
+
     private static final String EVENT_QUEUE = "EVENT_QUEUE";
+
+    private static final String FOLLOWER = "FOLLOWER";
+    private static final String FOLLOWEE = "FOLLOWEE";
+    private static final String TIMELINE = "TIMELINE";
 
     public static String getLikeKey(int entityType, int entityId) {
         return LIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
@@ -16,5 +23,13 @@ public class RedisKeyUtil {
 
     public static String getEventQueueKey() {
         return EVENT_QUEUE;
+    }
+
+    public static String getFollowerKey(int entityType, int entityId) {
+        return FOLLOWER + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
+    }
+
+    public static String getFolloweeKey(int entityType, int entityId) {
+        return FOLLOWEE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
 }

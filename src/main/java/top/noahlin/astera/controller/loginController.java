@@ -67,7 +67,6 @@ public class loginController {
                 response.addCookie(cookie);
 
                 eventProducer.fireEvent(new Event(EventType.LOGIN).
-                        setActorId(Integer.parseInt(map.get("userId"))).
                         setExt("username", username).
                         setExt("email", "noahlin27@qq.com"));
 
