@@ -21,12 +21,12 @@ public class FollowServiceImpl implements FollowService {
     @Override
     public boolean follow(int userId, int entityType, int entityId) {
         String followerKey = RedisKeyUtil.getFollowerKey(entityType, entityId);
-        String followeeKey = RedisKeyUtil.getFolloweeKey(entityType, userId);
+        String followingKey = RedisKeyUtil.getFollowingKey(entityType, userId);
         Date date = new Date();
         Jedis jedis = jedisAdaptor.getJedis();
         Transaction transaction = jedisAdaptor.multi(jedis);
         transaction.zadd(followerKey, date.getTime(), String.valueOf(userId));
-        transaction.zadd(followeeKey, date.getTime(), String.valueOf(entityId));
+        transaction.zadd(followingKey, date.getTime(), String.valueOf(entityId));
         List<Object> ret = jedisAdaptor.exec(transaction, jedis);
         return ret.size() == 2 && (long) ret.get(0) > 0 && (long) ret.get(1) > 0;
     }
@@ -34,12 +34,12 @@ public class FollowServiceImpl implements FollowService {
     @Override
     public boolean unfollow(int userId, int entityType, int entityId) {
         String followerKey = RedisKeyUtil.getFollowerKey(entityType, entityId);
-        String followeeKey = RedisKeyUtil.getFolloweeKey(entityType, userId);
+        String followingKey = RedisKeyUtil.getFollowingKey(entityType, userId);
         Date date = new Date();
         Jedis jedis = jedisAdaptor.getJedis();
         Transaction transaction = jedisAdaptor.multi(jedis);
         transaction.zrem(followerKey, String.valueOf(userId));
-        transaction.zrem(followeeKey, String.valueOf(entityId));
+        transaction.zrem(followingKey, String.valueOf(entityId));
         List<Object> ret = jedisAdaptor.exec(transaction, jedis);
         return ret.size() == 2 && (long) ret.get(0) > 0 && (long) ret.get(1) > 0;
     }
@@ -65,15 +65,15 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public List<Integer> getFollowees(int entityType, int entityId, int count) {
-        String followeeKey = RedisKeyUtil.getFolloweeKey(entityType,entityId);
-        return getIdsFromSet(jedisAdaptor.zrevrange(followeeKey, 0, count));
+    public List<Integer> getFollowing(int entityType, int entityId, int count) {
+        String followingKey = RedisKeyUtil.getFollowingKey(entityType,entityId);
+        return getIdsFromSet(jedisAdaptor.zrevrange(followingKey, 0, count));
     }
 
     @Override
-    public List<Integer> getFollowees(int entityType, int entityId, int offset, int count) {
-        String followeeKey = RedisKeyUtil.getFolloweeKey(entityType,entityId);
-        return getIdsFromSet(jedisAdaptor.zrevrange(followeeKey, offset, count));
+    public List<Integer> getFollowing(int entityType, int entityId, int offset, int count) {
+        String followingKey = RedisKeyUtil.getFollowingKey(entityType,entityId);
+        return getIdsFromSet(jedisAdaptor.zrevrange(followingKey, offset, count));
     }
 
     @Override
@@ -83,9 +83,9 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public long getFolloweeCount(int entityType, int entityId) {
-        String followeeKey = RedisKeyUtil.getFolloweeKey(entityType, entityId);
-        return jedisAdaptor.zcard(followeeKey);
+    public long getFollowingCount(int entityType, int entityId) {
+        String followingKey = RedisKeyUtil.getFollowingKey(entityType, entityId);
+        return jedisAdaptor.zcard(followingKey);
     }
 
     @Override

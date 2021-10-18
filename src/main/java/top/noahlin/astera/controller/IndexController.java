@@ -42,20 +42,19 @@ public class IndexController {
     @RequestMapping(value = "/user/{username}", method = {RequestMethod.GET, RequestMethod.POST})
     public String profile(HttpServletRequest request, @PathVariable("username") String username){
         User user = userService.getUser(username);
-
         ViewObject vo = new ViewObject();
         vo.set("user", userService.getUser(username));
         vo.set("commentCount", commentService.getCommentCount(EntityType.ENTITY_USER.getTypeId(), user.getId()));
         vo.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER.getTypeId(), user.getId()));
-        vo.set("followeeCount", followService.getFolloweeCount(EntityType.ENTITY_USER.getTypeId(), user.getId()));
-        request.setAttribute("userProfile", userService.getUser(username));
-        request.setAttribute("questionListVO", questionService.getQuestionList(userService.getUser(username).getId()));
+        vo.set("followingCount", followService.getFollowingCount(EntityType.ENTITY_USER.getTypeId(), user.getId()));
         if (hostHolder.getUser() != null) {
             vo.set("followed", followService.isFollower(hostHolder.getUser().getId(),
                     EntityType.ENTITY_USER.getTypeId(), user.getId()));
         } else {
             vo.set("followed", false);
         }
+        request.setAttribute("questionListVO", questionService.getQuestionList(userService.getUser(username).getId()));
+        request.setAttribute("userProfile", vo);
         return "profile";
     }
 }

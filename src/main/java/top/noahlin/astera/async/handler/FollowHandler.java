@@ -1,5 +1,6 @@
 package top.noahlin.astera.async.handler;
 
+import org.springframework.stereotype.Component;
 import top.noahlin.astera.async.Event;
 import top.noahlin.astera.async.EventHandler;
 import top.noahlin.astera.async.EventType;
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class FollowHandler implements EventHandler {
     @Resource
     MessageService messageService;

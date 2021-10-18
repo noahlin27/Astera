@@ -11,13 +11,13 @@ public interface FollowService {
 
     List<Integer> getFollowers(int entityType, int entityId, int offset, int count);
 
-    List<Integer> getFollowees(int entityType, int entityId, int count);
+    List<Integer> getFollowing(int entityType, int entityId, int count);
 
-    List<Integer> getFollowees(int entityType, int entityId, int offset, int count);
+    List<Integer> getFollowing(int entityType, int entityId, int offset, int count);
 
     long getFollowerCount(int entityType, int entityId);
 
-    long getFolloweeCount(int entityType, int entityId);
+    long getFollowingCount(int entityType, int entityId);
 
     boolean isFollower(int userId, int entityType, int entityId);
 }

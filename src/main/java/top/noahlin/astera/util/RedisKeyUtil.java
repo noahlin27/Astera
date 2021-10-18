@@ -10,7 +10,7 @@ public class RedisKeyUtil {
     private static final String EVENT_QUEUE = "EVENT_QUEUE";
 
     private static final String FOLLOWER = "FOLLOWER";
-    private static final String FOLLOWEE = "FOLLOWEE";
+    private static final String FOLLOWING = "FOLLOWING";
     private static final String TIMELINE = "TIMELINE";
 
     public static String getLikeKey(int entityType, int entityId) {
@@ -29,7 +29,7 @@ public class RedisKeyUtil {
         return FOLLOWER + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
 
-    public static String getFolloweeKey(int entityType, int entityId) {
-        return FOLLOWEE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
+    public static String getFollowingKey(int entityType, int entityId) {
+        return FOLLOWING + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
 }
