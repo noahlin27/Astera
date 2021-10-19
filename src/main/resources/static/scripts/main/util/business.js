@@ -37,6 +37,7 @@
                     oEl.removeAttr('data-limit');
                 }
             });
+            location.reload();
         });
     }
 
@@ -82,6 +83,7 @@
                     oEl.removeAttr('data-limit');
                 }
             });
+            location.reload();
         });
     }
 })(window);

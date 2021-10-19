@@ -132,7 +132,7 @@ public class FollowController {
     @GetMapping("/user/{userName}/following")
     public String following(@PathVariable("userName") String userName, HttpServletRequest request) {
         User user = userService.getUser(userName);
-        List<Integer> followingIds = followService.getFollowers(user.getId(), EntityType.ENTITY_USER.getTypeId(),
+        List<Integer> followingIds = followService.getFollowing(EntityType.ENTITY_USER.getTypeId(), user.getId(),
                 10);
         if(hostHolder.getUser() != null){
             request.setAttribute("following", getUserInfo(hostHolder.getUser().getId(), followingIds));

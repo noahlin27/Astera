@@ -6,70 +6,66 @@
 <div th:replace="header::nav-fragment(${user})"></div>
 <link rel="stylesheet" href="../styles/index.css">
 <link rel="stylesheet" href="../styles/detail.css">
-    <div class="zg-wrap zu-main clearfix " role="main">
-        <div class="zm-profile-section-wrap zm-profile-following-page">
-            <!--
-                <div class="zm-profile-section-head">
-                    <span class="zm-profile-section-name">
-                        <a href="#">${profileUser.user.name}</a> 关注了 ${profileUser.followerCount} 人
-                    </span>
-                </div>-->
-                <div class="zm-profile-section-list">
-                    <div id="zh-profile-follows-list">
-                        <div class="zh-general-list clearfix">
-                            <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
-                                <div class="zg-right">
-                                    <button th:if="${userProfile.get('followed')}"
-                                            class="zg-btn zg-btn-unfollow zm-rich-follow-btn small nth-0 js-follow-user"
-                                            data-status="1" th:data-id="${userProfile.get('user').id}">取消关注</button>
-                                    <button th:if="${userProfile.get('followed')}==false"
-                                            class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0 js-follow-user"
-                                            th:data-id="${userProfile.get('user').id}">关注</button>
-                                </div>
-                                <a title="Barty" class="zm-item-link-avatar"
-                                   th:href="@{'/user/'+${userProfile.get('user').name}}">
-                                    <img th:src="${userProfile.get('user').headUrl}" class="zm-item-img-avatar">
-                                </a>
-                                <div class="zm-list-content-medium">
+<div class="zg-wrap zu-main clearfix " role="main">
+    <div class="zm-profile-section-wrap zm-profile-following-page">
+        <div class="zm-profile-section-list">
+            <div id="zh-profile-follows-list">
+                <div class="zh-general-list clearfix">
+                    <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
+                        <div class="zg-right">
+                            <button th:if="${userProfile.get('followed')}"
+                                    class="zg-btn zg-btn-unfollow zm-rich-follow-btn small nth-0 js-follow-user"
+                                    data-status="1" th:data-id="${userProfile.get('user').id}">取消关注
+                            </button>
+                            <button th:if="${userProfile.get('followed')}==false"
+                                    class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0 js-follow-user"
+                                    th:data-id="${userProfile.get('user').id}">关注
+                            </button>
+                        </div>
+                        <a title="Barty" class="zm-item-link-avatar"
+                           th:href="@{'/user/'+${userProfile.get('user').name}}">
+                            <img th:src="${userProfile.get('user').headUrl}" class="zm-item-img-avatar">
+                        </a>
+                        <div class="zm-list-content-medium">
                                     <span class="zm-list-content-title">
                                         <a th:href="@{'/user/'+${userProfile.get('user').name}}" class="zg-link"
                                            th:text="${userProfile.get('user').name}"></a>
                                     </span>
-                                    <div class="details zg-gray">
-                                        <a target="_blank" th:href="@{|/user/${userProfile.get('user').name}/followers|}"
-                                           class="zg-link-gray-normal"
-                                           th:text="|${userProfile.get('followerCount')} 粉丝|"></a>
-                                        /
-                                        <a target="_blank" th:href="@{|/user/${userProfile.get('user').name}/following|}"
-                                           class="zg-link-gray-normal"
-                                           th:text="|${userProfile.get('followingCount')} 关注|"></a>
-                                        /
-                                        <a target="_blank" href="#" class="zg-link-gray-normal"
-                                           th:text="|${userProfile.get('commentCount')} 回答|"></a>
-                                        /
-                                        <a target="_blank" href="#" class="zg-link-gray-normal"
-                                           th:text="|${userProfile.get('followerCount')} 赞同|"></a>
-                                    </div>
-                                </div>
+                            <div class="details zg-gray">
+                                <a target="_blank" th:href="@{|/user/${userProfile.get('user').name}/followers|}"
+                                   class="zg-link-gray-normal"
+                                   th:text="|${userProfile.get('followerCount')} 粉丝|"></a>
+                                /
+                                <a target="_blank" th:href="@{|/user/${userProfile.get('user').name}/following|}"
+                                   class="zg-link-gray-normal"
+                                   th:text="|${userProfile.get('followingCount')} 关注|"></a>
+                                /
+                                <a target="_blank" href="#" class="zg-link-gray-normal"
+                                   th:text="|${userProfile.get('commentCount')} 回答|"></a>
+                                /
+                                <a target="_blank" href="#" class="zg-link-gray-normal"
+                                   th:text="|${userProfile.get('followerCount')} 赞同|"></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <div class="zu-main-content">
-            <div class="zu-main-content-inner">
-                <div class="zg-section" id="zh-home-list-title">
-                    <i class="zg-icon zg-icon-feedlist"></i>最新动态
-                    <span class="zg-right zm-noti-cleaner-setting" style="list-style:none">
+        </div>
+    </div>
+    <div class="zu-main-content">
+        <div class="zu-main-content-inner">
+            <div class="zg-section" id="zh-home-list-title">
+                <i class="zg-icon zg-icon-feedlist"></i>最新动态
+                <span class="zg-right zm-noti-cleaner-setting" style="list-style:none">
                         <a href="https://nowcoder.com/settings/filter" class="zg-link-gray-normal">
                             <i class="zg-icon zg-icon-settings"></i>设置
                         </a>
                     </span>
-                </div>
-                <div th:replace="questionList::questionList-fragment(${questionListVO})">
             </div>
+            <div th:replace="questionList::questionList-fragment(${questionListVO})"></div>
         </div>
     </div>
+</div>
 <div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/profile.js"></script>
 <div th:replace="footer::footer-fragment"></div>
