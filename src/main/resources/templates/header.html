@@ -64,10 +64,8 @@
         <div role="search" id="zh-top-search" class="zu-top-search" style="white-space: nowrap">
             <form method="GET" action="/search" id="zh-top-search-form" class="zu-top-search-form">
                 <label for="q" class="hide-text">Astera search</label><input type="text" class="zu-top-search-input"
-                                                                             id="q" name="q" autocomplete="off"
-                                                                             th:value="*{keyword}?:''"
-                                                                             placeholder="搜索你感兴趣的内容..."
-                                                                             role="combobox" aria-autocomplete="list">
+                       id="q" name="q" autocomplete="off" th:value="*{keyword}?:''" placeholder="搜索你感兴趣的内容..."
+                       role="combobox" aria-autocomplete="list">
                 <button type="submit" class="zu-top-search-button"><span class="hide-text">搜索</span><span
                         class="sprite-global-icon-magnifier-dark"></span>
                 </button>
@@ -80,7 +78,7 @@
                        data-za-a="visit_home" data-za-l="top_navigation_home">首页</a>
                 </li>
                 <li class="zu-top-nav-li " id="zh-top-nav-explore">
-                    <a class="zu-top-nav-link" href="/pullfeeds">发现</a>
+                    <a class="zu-top-nav-link" href="/pull_feeds">发现</a>
                 </li>
                 <li th:if="${not #strings.isEmpty(user)}" class="top-nav-noti zu-top-nav-li">
                     <a class="zu-top-nav-link" href="#" id="zh-top-nav-count-wrap" role="button">

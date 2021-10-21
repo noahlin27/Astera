@@ -20,18 +20,20 @@
                  th:utext="${questionVO.get('question').content}"></div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
-                    <button th:if="${not #strings.isEmpty(questionVO)}"
-                            class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
+                    <button th:if="${questionVO.get('followed')}"
+                            class="follow-button zg-follow zg-btn-white js-follow-question"
+                            th:data-id="${questionVO.get('question').id}"
                             data-status="1">取消关注
                     </button>
-                    <button th:if="${#strings.isEmpty(questionVO)}"
-                            class="follow-button zg-follow zg-btn-green js-follow-question" data-id="${question.id}">
+                    <button th:if="${not questionVO.get('followed')}"
+                            class="follow-button zg-follow zg-btn-green js-follow-question"
+                            th:data-id="${questionVO.get('question').id}">
                         关注问题
                     </button>
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
                             <a href="javascript:void(0);"><strong class="js-user-count"
-                                                                  th:text="${questionVO.get('question').commentCount}"></strong></a>人关注该问题
+                               th:text="${questionVO.get('question').commentCount}"></strong></a>人关注该问题
                         </div>
                         <div class="list zu-small-avatar-list zg-clear js-user-list">
                             #foreach($vo in $followUsers)

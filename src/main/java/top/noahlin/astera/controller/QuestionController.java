@@ -9,10 +9,7 @@ import top.noahlin.astera.model.Comment;
 import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.ViewObject;
-import top.noahlin.astera.service.CommentService;
-import top.noahlin.astera.service.LikeService;
-import top.noahlin.astera.service.QuestionService;
-import top.noahlin.astera.service.UserService;
+import top.noahlin.astera.service.*;
 import top.noahlin.astera.util.JsonUtil;
 
 import javax.annotation.Resource;
@@ -40,6 +37,9 @@ public class QuestionController {
     @Resource
     HostHolder hostHolder;
 
+    @Resource
+    FollowService followService;
+
     @PostMapping("/question/add")
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,
@@ -66,21 +66,27 @@ public class QuestionController {
 
     @GetMapping("/question/{questionId}")
     public String questionDetail(HttpServletRequest request,
-                           @PathVariable("questionId") int id) {
+                                 @PathVariable("questionId") int id) {
         ViewObject questionVO = new ViewObject();
         Question question = questionService.getQuestion(id);
         questionVO.set("user", userService.getUser(question.getUserId()));
         questionVO.set("question", question);
+        if (hostHolder.getUser() == null) {
+            questionVO.set("followed", false);
+        } else {
+            questionVO.set("followed", followService.isFollower(hostHolder.getUser().getId(),
+                    EntityType.ENTITY_QUESTION.getTypeId(), id));
+        }
         request.setAttribute("questionVO", questionVO);
 
         List<Comment> comments = commentService.getCommentsByEntity(id, EntityType.ENTITY_QUESTION.getTypeId());
         List<ViewObject> vos = new ArrayList<>();
-        for (Comment comment: comments){
+        for (Comment comment : comments) {
             ViewObject commentVO = new ViewObject();
             commentVO.set("comment", comment);
-            if (hostHolder.getUser()==null){
+            if (hostHolder.getUser() == null) {
                 commentVO.set("likeStatus", 0);
-            }else {
+            } else {
                 commentVO.set("likeStatus", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT.getTypeId(), comment.getId()));
             }
             commentVO.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT.getTypeId(), comment.getId()));
@@ -88,6 +94,7 @@ public class QuestionController {
             vos.add(commentVO);
         }
         request.setAttribute("vos", vos);
+
         return "questionDetail";
     }
 }
