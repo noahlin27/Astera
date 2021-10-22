@@ -6,7 +6,7 @@
     <div class="feed-item-inner">
         <div class="avatar">
             <a th:title="${vo.get('userName')}" data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank"
-               th:href="'/user/'+${vo.get('userName')}">
+               th:href="'/user/' + ${vo.get('userName')}">
                 <img th:src="${vo.get('userHead')}" class="zm-item-img-avatar"></a>
         </div>
         <div class="feed-main">
@@ -16,11 +16,11 @@
                 <div class="expandable entry-body">
                     <div class="zm-item-answer-author-info">
                         <a class="author-link" data-tip="p$b$amuro1230" target="_blank"
-                           th:href="'/user/'+${vo.get('userName')}" th:text="${vo.get('userName')}">
+                           th:href="'/user/' + ${vo.get('userName')}" th:text="${vo.get('userName')}">
                         </a>
-                        <span th:text="' 评论了问题，'+${#dates.format(vo.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        <span th:text="' 评论了问题，' + ${#dates.format(vo.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
                     </div>
-                    <div class="zh-summary summary clearfix"><a th:href="'/question/'+${vo.get('questionId')}"
+                    <div class="zh-summary summary clearfix"><a th:href="'/question/' + ${vo.get('questionId')}"
                                                                 th:text="${vo.get('questionTitle')}"></a>
                     </div>
                 </div>
@@ -29,14 +29,14 @@
     </div>
 </div>
 
-<div th:fragment="follow_question(vo)" class="feed-item folding feed-item-hook feed-item-2"
+<div th:fragment="follow-question(vo)" class="feed-item folding feed-item-hook feed-item-2"
      data-type="a" id="feed-2" data-za-module="FeedItem" data-za-index="">
     <meta itemprop="ZReactor" data-id="389034">
     <meta itemprop="ZReactor" data-id="389034">
     <div class="feed-item-inner">
         <div class="avatar">
             <a th:title="${vo.get('userName')}" data-tip="p$t$amuro1230" class="zm-item-link-avatar" target="_blank"
-               th:href="'/user/'+${vo.get('userName')}">
+               th:href="'/user/' + ${vo.get('userName')}">
                 <img th:src="${vo.get('userHead')}" class="zm-item-img-avatar"></a>
         </div>
         <div class="feed-main">
@@ -46,11 +46,11 @@
                 <div class="expandable entry-body">
                     <div class="zm-item-answer-author-info">
                         <a class="author-link" data-tip="p$b$amuro1230" target="_blank"
-                           th:href="'/user/'+${vo.get('userName')}" th:text="${vo.get('userName')}">
+                           th:href="'/user/' + ${vo.get('userName')}" th:text="${vo.get('userName')}">
                         </a>
-                        <span th:text="' 关注了问题，'+${#dates.format(vo.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        <span th:text="' 关注了问题，' + ${#dates.format(vo.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
                     </div>
-                    <div class="zh-summary summary clearfix"><a th:href="'/question/'+${vo.get('questionId')}"
+                    <div class="zh-summary summary clearfix"><a th:href="'/question/' + ${vo.get('questionId')}"
                                                                 th:text="${vo.get('questionTitle')}"></a>
                     </div>
                 </div>

@@ -33,14 +33,13 @@
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
                             <a href="javascript:void(0);"><strong class="js-user-count"
-                               th:text="${questionVO.get('question').commentCount}"></strong></a>人关注该问题
+                               th:text="${questionVO.get('followerCount')}"></strong></a> 人关注该问题
                         </div>
-                        <div class="list zu-small-avatar-list zg-clear js-user-list">
-                            #foreach($vo in $followUsers)
-                            <a class="zm-item-link-avatar js-user-${vo.id}" href="/user/${vo.id}"
-                               data-original_title="${vo.name}">
-                                <img th:src="${questionVO.get('user').headUrl}" class="zm-item-img-avatar"></a>
-                            #end
+                        <div th:each="follower : ${questionVO.get('followers')}"
+                             class="list zu-small-avatar-list zg-clear js-user-list">
+                            <a class="zm-item-link-avatar js-user-${vo.id}" th:href="'/user/' + ${follower.get('id')}"
+                               th:data-original_title="${follower.get('name')}">
+                                <img th:src="${follower.get('headUrl')}" class="zm-item-img-avatar"></a>
                         </div>
                     </div>
                 </div>

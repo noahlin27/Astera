@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import top.noahlin.astera.common.EntityType;
-import top.noahlin.astera.model.Comment;
-import top.noahlin.astera.model.HostHolder;
-import top.noahlin.astera.model.Question;
-import top.noahlin.astera.model.ViewObject;
+import top.noahlin.astera.model.*;
 import top.noahlin.astera.service.*;
 import top.noahlin.astera.util.JsonUtil;
 
@@ -66,20 +63,35 @@ public class QuestionController {
 
     @GetMapping("/question/{questionId}")
     public String questionDetail(HttpServletRequest request,
-                                 @PathVariable("questionId") int id) {
+                                 @PathVariable("questionId") int questionId) {
         ViewObject questionVO = new ViewObject();
-        Question question = questionService.getQuestion(id);
+        Question question = questionService.getQuestion(questionId);
         questionVO.set("user", userService.getUser(question.getUserId()));
         questionVO.set("question", question);
         if (hostHolder.getUser() == null) {
             questionVO.set("followed", false);
         } else {
             questionVO.set("followed", followService.isFollower(hostHolder.getUser().getId(),
-                    EntityType.ENTITY_QUESTION.getTypeId(), id));
+                    EntityType.ENTITY_QUESTION.getTypeId(), questionId));
         }
+        questionVO.set("followerCount", followService.getFollowerCount(EntityType.ENTITY_QUESTION.getTypeId(),
+                questionId));
+        List<Integer> followers = followService.getFollowers(EntityType.ENTITY_QUESTION.getTypeId(), questionId,
+                20);
+        List<ViewObject> followerInfo = new ArrayList<>();
+        for (Integer userId : followers){
+            ViewObject userInfo = new ViewObject();
+            User follower = userService.getUser(userId);
+            userInfo.set("id", userId);
+            userInfo.set("name", follower.getName());
+            userInfo.set("headUrl", follower.getHeadUrl());
+            followerInfo.add(userInfo);
+        }
+        questionVO.set("followers", followerInfo);
+
         request.setAttribute("questionVO", questionVO);
 
-        List<Comment> comments = commentService.getCommentsByEntity(id, EntityType.ENTITY_QUESTION.getTypeId());
+        List<Comment> comments = commentService.getCommentsByEntity(questionId, EntityType.ENTITY_QUESTION.getTypeId());
         List<ViewObject> vos = new ArrayList<>();
         for (Comment comment : comments) {
             ViewObject commentVO = new ViewObject();
