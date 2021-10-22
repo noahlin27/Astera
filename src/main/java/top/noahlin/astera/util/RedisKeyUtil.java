@@ -32,4 +32,8 @@ public class RedisKeyUtil {
     public static String getFollowingKey(int entityType, int entityId) {
         return FOLLOWING + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
+
+    public static String getTimelineKey(int userId){
+        return TIMELINE + SPLIT + String.valueOf(userId);
+    }
 }

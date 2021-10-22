@@ -25,6 +25,11 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
+    public int getLatestId() {
+        return feedDAO.selectLatestId();
+    }
+
+    @Override
     public List<Feed> getFeeds(int maxId, List<Integer> userIds, int count) {
         return feedDAO.selectFeeds(maxId, userIds, count);
     }

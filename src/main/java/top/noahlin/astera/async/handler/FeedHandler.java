@@ -6,13 +6,17 @@ import org.springframework.stereotype.Component;
 import top.noahlin.astera.async.Event;
 import top.noahlin.astera.async.EventHandler;
 import top.noahlin.astera.async.EventType;
+import top.noahlin.astera.common.DefaultUser;
 import top.noahlin.astera.common.EntityType;
 import top.noahlin.astera.model.Feed;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.User;
 import top.noahlin.astera.service.FeedService;
+import top.noahlin.astera.service.FollowService;
 import top.noahlin.astera.service.QuestionService;
 import top.noahlin.astera.service.UserService;
+import top.noahlin.astera.util.JedisAdaptor;
+import top.noahlin.astera.util.RedisKeyUtil;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -28,6 +32,12 @@ public class FeedHandler implements EventHandler {
     @Resource
     FeedService feedService;
 
+    @Resource
+    FollowService followService;
+
+    @Resource
+    JedisAdaptor jedisAdaptor;
+
     @Override
     public void handle(Event event) {
         Feed feed = new Feed();
@@ -39,6 +49,14 @@ public class FeedHandler implements EventHandler {
             return;
         }
         feedService.addFeed(feed);
+
+        List<Integer> followers = followService.getFollowers(EntityType.ENTITY_USER.getTypeId(), event.getActorId(),
+                Integer.MAX_VALUE);
+        followers.add(DefaultUser.SYSTEM_USER.getId());
+        for (int followerId : followers) {
+            String timelineKey = RedisKeyUtil.getTimelineKey(followerId);
+            jedisAdaptor.lpush(timelineKey, String.valueOf(feedService.getLatestId()));
+        }
     }
 
     @Override
@@ -62,7 +80,7 @@ public class FeedHandler implements EventHandler {
             if(question == null){
                 return null;
             }
-            map.put("questionId", String.valueOf(question.getUserId()));
+            map.put("questionId", String.valueOf(question.getId()));
             map.put("questionTitle", question.getTitle());
             return JSONObject.toJSONString(map);
         }

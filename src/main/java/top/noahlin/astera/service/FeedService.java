@@ -9,5 +9,7 @@ public interface FeedService {
 
     Feed getFeed(int id);
 
+    int getLatestId();
+
     List<Feed> getFeeds(int maxId, List<Integer> userIds, int count);
 }

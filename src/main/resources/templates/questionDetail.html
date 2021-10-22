@@ -87,7 +87,8 @@
                         <div class="zm-item-vote-info">
                                 <span class="voters text">
                                     <a href="" class="more text">
-                                        <span class="js-voteCount" th:text="|${commentVO.get('likeCount')} 赞同|"></span>
+                                        <span class="js-voteCount"
+                                              th:text="${commentVO.get('likeCount')} + ' 赞同'"></span>
                                     </a>
                                 </span>
                         </div>

@@ -18,6 +18,9 @@ public interface FeedDAO {
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
     Feed selectById(int id);
 
+    @Select({"select id from ", TABLE_NAME, "order by id desc limit 1"})
+    int selectLatestId();
+
     List<Feed> selectFeeds(@Param("maxId") int maxId, @Param("userIds") List<Integer> userIds,
                            @Param("count") int count);
 }
