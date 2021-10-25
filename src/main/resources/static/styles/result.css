@@ -7944,9 +7944,10 @@ a>.invisible {
 }
 }.zu-top-link-logo {
     float:left;
-    width:61px;
+    width:45px;
     height:100%;
-    background-image:url(../images/res/nk.png);
+    background-image:url(../images/res/tachi.jpg);
+    background-size: cover;
     background-repeat:no-repeat;
     background-position:center;
     text-indent:-9999px;

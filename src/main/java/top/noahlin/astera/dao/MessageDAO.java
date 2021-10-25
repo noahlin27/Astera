@@ -19,9 +19,12 @@ public interface MessageDAO {
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where conversation_id=#{conversationId} order by create_time desc limit #{offset}, #{limit}"})
     List<Message> selectLatest(@Param("conversationId") String conversationId, @Param("offset") int offset, @Param("limit") int limit);
 
-    @Select({"select", INSERT_FIELDS, ", count(id) as id from (select * from", TABLE_NAME, "where from_id=#{userId} or to_id=#{userId} order by create_time desc)tt group by conversation_id order by create_time desc limit #{offset}, #{limit}"})
+    @Select({"select", SELECT_FIELDS, ", count(id) as id from (select * from", TABLE_NAME, "where from_id=#{userId} or to_id=#{userId} order by create_time desc limit 100000)tt group by conversation_id order by create_time desc limit #{offset}, #{limit}"})
     List<Message> selectConversations(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
 
     @Select({"select count(id) from ", TABLE_NAME, " where has_read=0 and to_id=#{userId} and conversation_id=#{conversationId}"})
     int selectCountUnread(@Param("userId") int userId, @Param("conversationId") String conversationId);
+
+    @Update({"update", TABLE_NAME, "set has_read=1 where conversation_id=#{conversationId}"})
+    int updateHasRead(String conversationId);
 }

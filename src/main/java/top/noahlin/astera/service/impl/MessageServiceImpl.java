@@ -40,4 +40,9 @@ public class MessageServiceImpl implements MessageService {
     public int getUnreadCount(int userId, String conversationId) {
         return messageDAO.selectCountUnread(userId, conversationId);
     }
+
+    @Override
+    public int read(String conversationId) {
+        return messageDAO.updateHasRead(conversationId);
+    }
 }

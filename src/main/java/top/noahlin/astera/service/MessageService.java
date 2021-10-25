@@ -12,4 +12,6 @@ public interface MessageService {
     List<Message> getConversationList(int userId);
 
     int getUnreadCount(int userId, String conversationId);
+
+    int read(String conversationId);
 }

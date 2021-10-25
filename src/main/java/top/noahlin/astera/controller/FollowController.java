@@ -10,6 +10,7 @@ import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.User;
 import top.noahlin.astera.model.ViewObject;
+import top.noahlin.astera.service.CommentService;
 import top.noahlin.astera.service.FollowService;
 import top.noahlin.astera.service.QuestionService;
 import top.noahlin.astera.service.UserService;
@@ -38,6 +39,9 @@ public class FollowController {
 
     @Resource
     UserService userService;
+
+    @Resource
+    CommentService commentService;
 
     @PostMapping("/followUser")
     @ResponseBody
@@ -125,6 +129,7 @@ public class FollowController {
             request.setAttribute("followers", getUserInfo(0, followersIds));
         }
         request.setAttribute("followerCount", followService.getFollowerCount(EntityType.ENTITY_USER.getTypeId(), user.getId()));
+        request.setAttribute("commentCount", commentService.getCommentCount(user.getId()));
         request.setAttribute("curUser", userService.getUser(user.getId()));
         return "followers";
     }

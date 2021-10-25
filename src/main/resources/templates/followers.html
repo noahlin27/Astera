@@ -19,33 +19,32 @@
                         <div class="zh-general-list clearfix">
                             <div th:each="vo:${followers}"
                                  class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
-                                <div th:if="${vo.followed}" class="zg-right">
+                                <div th:if="${vo.get('followed')}" class="zg-right">
                                     <button class="zg-btn zg-btn-unfollow zm-rich-follow-btn small nth-0
                                     js-follow-user" data-status="1" data-id="$vo.user.id">取消关注</button>
                                 </div>
-                                <div th:if="${not vo.followed}" class="zg-right">
+                                <div th:if="${not vo.get('followed')}" class="zg-right">
                                     <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
                                     js-follow-user">关注</button>
                                 </div>
                                 <a title="Barty" class="zm-item-link-avatar" href="/user/${vo.user.id}">
-                                    <img th:src="${vo.user.headUrl}" class="zm-item-img-avatar">
+                                    <img th:src="${vo.get('user').headUrl}" class="zm-item-img-avatar">
                                 </a>
                                 <div class="zm-list-content-medium">
                                     <h2 class="zm-list-content-title">
-                                        <a data-tip="p$t$buaabarty" th:href="'/user/'+${vo.user.id}" class="zg-link"
-                                           title="Barty" th:text="${vo.user.name}">
+                                        <a data-tip="p$t$buaabarty" th:href="'/user/'+${vo.get('user').id}" class="zg-link"
+                                           title="Barty" th:text="${vo.get('user').name}">
                                         </a>
                                     </h2>
-                                    <!-- <div class="zg-big-gray">计蒜客教研首席打杂</div> -->
                                     <div class="details zg-gray">
-                                        <a target="_blank" th:href="|/user/${vo.user.id}/followers|"
-                                           class="zg-link-gray-normal" th:text="${vo.followerCount}+'粉丝'"></a>
+                                        <a target="_blank" th:href="@{|'/user/' + ${vo.get('user').id}/followers|}"
+                                           class="zg-link-gray-normal" th:text="${vo.get('followerCount')}+'粉丝'"></a>
                                         /
                                         <a target="_blank" href="/user/${vo.user.id}/following"
-                                           class="zg-link-gray-normal" th:text="${vo.followingCount}+'关注'"></a>
+                                           class="zg-link-gray-normal" th:text="${vo.get('followingCount')}+'关注'"></a>
                                         /
                                         <a target="_blank" href="#" class="zg-link-gray-normal"
-                                           th:text="${vo.commentCount}+ '回答'"></a>
+                                           th:text="${vo.get('commentCount')}+ '回答'"></a>
                                         /
                                         <a target="_blank" href="#" class="zg-link-gray-normal">548 赞同</a>
                                     </div>

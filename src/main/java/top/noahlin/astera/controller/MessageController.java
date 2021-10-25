@@ -99,6 +99,7 @@ public class MessageController {
                 vos.add(vo);
             }
             request.setAttribute("vos", vos);
+            messageService.read(conversationId);
         } catch (Exception e) {
             logger.error("获取消息详情失败" + e.getMessage());
         }
