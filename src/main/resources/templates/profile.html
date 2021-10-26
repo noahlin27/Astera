@@ -1,56 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" dropeffect="none" style=""
       class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
-<head th:replace="header::head-fragment"></head>
+<head th:replace="fragments::head"></head>
 <body class="zhi">
-<div th:replace="header::nav-fragment(${user})"></div>
+<div th:replace="fragments::navigation(${user})"></div>
 <link rel="stylesheet" href="../styles/index.css">
 <link rel="stylesheet" href="../styles/detail.css">
 <div class="zg-wrap zu-main clearfix " role="main">
-    <div class="zm-profile-section-wrap zm-profile-following-page">
-        <div class="zm-profile-section-list">
-            <div id="zh-profile-follows-list">
-                <div class="zh-general-list clearfix">
-                    <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
-                        <div class="zg-right">
-                            <button th:if="${userProfile.get('followed')}"
-                                    class="zg-btn zg-btn-unfollow zm-rich-follow-btn small nth-0 js-follow-user"
-                                    data-status="1" th:data-id="${userProfile.get('user').id}">取消关注
-                            </button>
-                            <button th:if="${userProfile.get('followed')}==false"
-                                    class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0 js-follow-user"
-                                    th:data-id="${userProfile.get('user').id}">关注
-                            </button>
-                        </div>
-                        <a title="Barty" class="zm-item-link-avatar"
-                           th:href="@{'/user/'+${userProfile.get('user').name}}">
-                            <img th:src="${userProfile.get('user').headUrl}" class="zm-item-img-avatar">
-                        </a>
-                        <div class="zm-list-content-medium">
-                                    <span class="zm-list-content-title">
-                                        <a th:href="@{'/user/'+${userProfile.get('user').name}}" class="zg-link"
-                                           th:text="${userProfile.get('user').name}"></a>
-                                    </span>
-                            <div class="details zg-gray">
-                                <a target="_blank" th:href="@{|/user/${userProfile.get('user').name}/followers|}"
-                                   class="zg-link-gray-normal"
-                                   th:text="|${userProfile.get('followerCount')} 粉丝|"></a>
-                                /
-                                <a target="_blank" th:href="@{|/user/${userProfile.get('user').name}/following|}"
-                                   class="zg-link-gray-normal"
-                                   th:text="|${userProfile.get('followingCount')} 关注|"></a>
-                                /
-                                <a target="_blank" href="#" class="zg-link-gray-normal"
-                                   th:text="|${userProfile.get('commentCount')} 回答|"></a>
-                                /
-                                <a target="_blank" href="#" class="zg-link-gray-normal"
-                                   th:text="|${userProfile.get('followerCount')} 赞同|"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div th:replace="fragments::profile-card(${userProfile})">
     </div>
     <div class="zu-main-content">
         <div class="zu-main-content-inner">
@@ -62,12 +19,10 @@
                         </a>
                     </span>
             </div>
-            <div th:replace="questionList::questionList-fragment(${questionListVO})"></div>
+            <div th:replace="fragments::questionList(${questionListVO})"></div>
         </div>
     </div>
 </div>
-<div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/profile.js"></script>
-<div th:replace="footer::footer-fragment"></div>
 </body>
 </html>

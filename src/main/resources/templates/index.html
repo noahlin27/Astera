@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" dropeffect="none" style=""
       class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
-<head th:replace="header::head-fragment"></head>
+<head th:replace="fragments::head"></head>
 <body class="zhi">
-<div th:replace="header::nav-fragment(${user})"></div>
+<div th:replace="fragments::navigation(${user})"></div>
 <link rel="stylesheet" href="../styles/index.css">
 <link rel="stylesheet" href="../styles/detail.css">
 <div class="zg-wrap zu-main clearfix " role="main">
@@ -13,18 +13,16 @@
                 <i class="zg-icon zg-icon-feedlist"></i>最新动态
                 <input type="hidden" id="is-topstory">
                 <span class="zg-right zm-noti-cleaner-setting" style="list-style:none">
-<!--                    <a th:href="@{'/user/'+${user.name}}" class="zg-link-gray-normal">-->
-<!--                        <i class="zg-icon zg-icon-settings"></i>设置-->
-<!--                    </a>-->
+                    <a href="#" class="zg-link-gray-normal">
+                        <i class="zg-icon zg-icon-settings"></i>设置
+                    </a>
                 </span>
             </div>
-            <div th:replace="questionList::questionList-fragment(${questionListVO})">
+            <div th:replace="fragments::questionList(${questionListVO})">
             </div>
         </div>
     </div>
 </div>
-<div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
-<div th:replace="footer::footer-fragment"></div>
 </body>
 </html>

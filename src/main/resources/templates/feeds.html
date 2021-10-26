@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" dropeffect="none" style=""
       class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
-<head th:replace="header::head-fragment"></head>
+<head th:replace="fragments::head"></head>
 <body class="zhi">
-<div th:replace="header::nav-fragment(${user})"></div>
+<div th:replace="fragments::navigation(${user})"></div>
 <link rel="stylesheet" href="../styles/index.css">
 <link rel="stylesheet" href="../styles/detail.css">
 <div class="zg-wrap zu-main clearfix " role="main">
@@ -25,10 +25,10 @@
                      data-init="{&quot;params&quot;: {}, &quot;nodename&quot;: &quot;TopStory2FeedList&quot;}"
                      data-delayed="true" data-za-module="TopStoryFeedList">
                     <div th:if="${vo.type} == 1">
-                        <div th:replace="feedFragment::comment-question(${vo})"></div>
+                        <div th:replace="fragments::comment-question(${vo})"></div>
                     </div>
                     <div th:if="${vo.type} == 4">
-                        <div th:replace="feedFragment::follow-question(${vo})"></div>
+                        <div th:replace="fragments::follow-question(${vo})"></div>
                     </div>
                 </div>
                 <a href="javascript:;" id="zh-load-more" data-method="next" class="zg-btn-white zg-r3px zu-button-more"
@@ -36,8 +36,6 @@
         </div>
     </div>
 </div>
-<div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
-<div th:replace="footer::footer-fragment"></div>
 </body>
 </html>

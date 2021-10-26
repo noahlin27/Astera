@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" dropeffect="none" style=""
       class="js is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
-<head th:replace="header::head-fragment"></head>
+<head th:replace="fragments::head"></head>
 <body class="zhi">
-<div th:replace="header::nav-fragment(${user})"></div>
+<div th:replace="fragments::navigation(${user})"></div>
 <link rel="stylesheet" href="../styles/detail.css">
 <div class="zg-wrap zu-main clearfix with-indention-votebar" itemscope="" itemtype="http://schema.org/Question"
      id="zh-single-question-page" data-urltoken="36301524" role="main">
@@ -35,11 +35,13 @@
                             <a href="javascript:void(0);"><strong class="js-user-count"
                                th:text="${questionVO.get('followerCount')}"></strong></a> 人关注该问题
                         </div>
-                        <div th:each="follower : ${questionVO.get('followers')}"
-                             class="list zu-small-avatar-list zg-clear js-user-list">
-                            <a class="zm-item-link-avatar js-user-${vo.id}" th:href="'/user/' + ${follower.get('id')}"
+                        <div class="list zu-small-avatar-list zg-clear js-user-list">
+                            <a th:each="follower : ${questionVO.get('followers')}"
+                               class="zm-item-link-avatar js-user-${vo.id}"
+                               th:href="'/user/' + ${follower.get('id')}"
                                th:data-original_title="${follower.get('name')}">
-                                <img th:src="${follower.get('headUrl')}" class="zm-item-img-avatar"></a>
+                                <img th:src="${follower.get('headUrl')}" class="zm-item-img-avatar">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -135,8 +137,6 @@
         </div>
     </div>
 </div>
-<div th:replace="js::js-fragment"></div>
 <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
-<div th:replace="footer::footer-fragment"></div>
 </body>
 </html>

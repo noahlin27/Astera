@@ -50,7 +50,7 @@ public class FeedHandler implements EventHandler {
         }
         feedService.addFeed(feed);
 
-        List<Integer> followers = followService.getFollowers(EntityType.ENTITY_USER.getTypeId(), event.getActorId(),
+        List<Integer> followers = followService.getFollowers(EntityType.USER.getTypeId(), event.getActorId(),
                 Integer.MAX_VALUE);
         followers.add(DefaultUser.SYSTEM_USER.getId());
         for (int followerId : followers) {
@@ -75,7 +75,7 @@ public class FeedHandler implements EventHandler {
         map.put("userName", actor.getName());
         if (event.getType() == EventType.COMMENT ||
             event.getType() == EventType.FOLLOW &&
-            event.getEntityType() == EntityType.ENTITY_QUESTION.getTypeId()) {
+            event.getEntityType() == EntityType.QUESTION.getTypeId()) {
             Question question = questionService.getQuestion(event.getEntityId());
             if(question == null){
                 return null;

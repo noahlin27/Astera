@@ -13767,7 +13767,7 @@ html.no-touchevents .carousel:hover .carousel-navigation-btn {
     margin: 20px auto;
 }
 .zm-profile-section-wrap {
-    margin-top: 25px;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 1px 0 #f2f4f5;

@@ -27,6 +27,7 @@
             error: oConf.error,
             always: oConf.always
         });
+        location.reload();
     }
 
     /**
@@ -46,6 +47,7 @@
             error: oConf.error,
             always: oConf.always
         });
+        location.reload();
     }
 
     /**

@@ -1,9 +1,9 @@
 package top.noahlin.astera.common;
 
 public enum EntityType {
-    ENTITY_USER(1, "user"),
-    ENTITY_QUESTION(2, "question"),
-    ENTITY_COMMENT(3, "comment");
+    USER(1, "user"),
+    QUESTION(2, "question"),
+    COMMENT(3, "comment");
 
     private int typeId;
     private String typeName;

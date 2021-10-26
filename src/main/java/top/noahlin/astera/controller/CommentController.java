@@ -39,7 +39,7 @@ public class CommentController {
             Comment comment = new Comment();
             comment.setContent(content);
             comment.setUserId(hostHolder.getUser().getId());
-            comment.setEntityType(EntityType.ENTITY_QUESTION.getTypeId());
+            comment.setEntityType(EntityType.QUESTION.getTypeId());
             comment.setEntityId(questionId);
             comment.setCreateTime(new Date());
             commentService.addComment(comment);
