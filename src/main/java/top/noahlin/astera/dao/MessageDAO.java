@@ -22,6 +22,9 @@ public interface MessageDAO {
     @Select({"select", SELECT_FIELDS, ", count(id) as id from (select * from", TABLE_NAME, "where from_id=#{userId} or to_id=#{userId} order by create_time desc limit 100000)tt group by conversation_id order by create_time desc limit #{offset}, #{limit}"})
     List<Message> selectConversations(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
 
+    @Select({"select count(id) from ", TABLE_NAME, " where conversation_id=#{conversationId}"})
+    int selectCount(@Param("conversationId") String conversationId);
+
     @Select({"select count(id) from ", TABLE_NAME, " where has_read=0 and to_id=#{userId} and conversation_id=#{conversationId}"})
     int selectCountUnread(@Param("userId") int userId, @Param("conversationId") String conversationId);
 

@@ -19,7 +19,7 @@
                         删除
                         </a>
                         <a th:href="@{'/msg/detail?conversationId='+${conversationVO.get('conversation').conversationId}}"
-                           th:text="|共${conversationVO.get('conversation').id}条会话|"></a>
+                           th:text="|共${conversationVO.get('count')}条会话|"></a>
                     </div>
                 </div>
                 <div class="chat-headbox">

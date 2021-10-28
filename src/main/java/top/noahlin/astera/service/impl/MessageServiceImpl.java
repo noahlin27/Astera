@@ -37,6 +37,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public int getMessageCount(String conversationId) {
+        return messageDAO.selectCount(conversationId);
+    }
+
+    @Override
     public int getUnreadCount(int userId, String conversationId) {
         return messageDAO.selectCountUnread(userId, conversationId);
     }

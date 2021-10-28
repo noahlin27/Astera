@@ -4835,7 +4835,6 @@ html.no-touchevents .feed-source a:hover {
 }
 .feed-item .feed-content span{
     margin-right:20px;
-    font-weight: 700;
     font-size: 14px;
 }
 .feed-item .more_opt {
@@ -9501,7 +9500,6 @@ html.no-touchevents .zh-add-question-form .question-suggest-ac-wrap .ac-renderer
 .zh-summary {
     -webkit-tap-highlight-color:rgba(225,225,225,.5);
     position:relative;
-    cursor:pointer;
     white-space: pre-line;
 }
 .zh-summary .inline-img,.CardAdFeed-image {
@@ -12779,7 +12777,7 @@ html.no-touchevents .zm-votebar .up:hover,html.no-touchevents .zm-votebar .down:
     background:#25bb9b;
     color:#fff
 }
-.zm-item-vote-count {
+.up {
     display:block;
     color:#25bb9b;
     height:24px;
@@ -12789,12 +12787,15 @@ html.no-touchevents .zm-votebar .up:hover,html.no-touchevents .zm-votebar .down:
     border:0;
     cursor:pointer;
     background:#eff6fa;
-    font-weight:700;
     font-weight:500;
     text-align:center;
     text-decoration:none;
     overflow:hidden;
     -webkit-text-size-adjust:none
+}
+.up.js-dislike2{
+    background: #25bb9b;
+    color: #fff;
 }
 .zm-item-vote-count:hover {
     text-decoration:none

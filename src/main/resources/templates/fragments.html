@@ -74,7 +74,7 @@
         </div>
         <button th:if="${not #strings.isEmpty(user)}" class="zu-top-add-question" id="zu-top-add-question">提问</button>
         <div role="search" id="zh-top-search" class="zu-top-search" style="white-space: nowrap">
-<!--            <form method="GET" action="/search" id="zh-top-search-form" class="zu-top-search-form">-->
+            <!--            <form method="GET" action="/search" id="zh-top-search-form" class="zu-top-search-form">-->
             <form method="GET" action="#" id="zh-top-search-form" class="zu-top-search-form">
                 <label for="q" class="hide-text">Astera search
                 </label><input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off"
@@ -243,18 +243,22 @@
                             <div class="question-description-plain zm-editable-content"></div>
                         </div>
                         <div class="expandable entry-body">
-                            <div class="zm-item-vote">
-                                <a class="zm-item-vote-count js-expand js-vote-count"
-                                   href="javascript:;" data-bind-votecount=""
-                                   th:text="${vo.get('question').id}">
-                                </a>
+                            <div class="zm-item-vote js-vote2" th:attr="data-id=${vo.get('question').id}">
+                                <button th:if="${vo.get('likeStatus')}>0" class="up js-dislike2" title="赞同"
+                                        th:text="${vo.get('likeCount')}">
+                                    <span class="label sr-only">取消</span>
+                                </button>
+                                <button th:if="${vo.get('likeStatus')}<=0" class="up js-like2" title="赞同"
+                                        th:text="${vo.get('likeCount')}">
+                                    <span class="label sr-only">赞同</span>
+                                </button>
                             </div>
                             <div class="zm-item-answer-author-info">
                                 <a class="author-link" data-tip="p$b$amuro1230" target="_blank"
                                    th:href="@{'/user/'+${vo.get('user').name}}"
                                    th:text="${vo.get('user').name}">
                                 </a>
-                                <span th:text="'，'+${#dates.format(vo.get('question').createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                <span th:text="'，' + ${#dates.format(vo.get('question').createTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
                             </div>
                             <div class="zm-item-vote-info" data-votecount="4168"
                                  data-za-module="VoteInfo">
@@ -276,7 +280,7 @@
                             <div class="zm-item-meta answer-actions clearfix js-contentActions">
                                 <div class="zm-meta-panel">
                                     <a data-follow="q:link" class="follow-link zg-follow meta-item"
-                                       href="javascript:;" id="sfb-123114">
+                                       th:href="@{'/question/' + ${vo.get('question').id}}" id="sfb-123114">
                                         <i class="z-icon-follow"></i>关注问题
                                     </a>
                                     <a th:href="@{'/question/'+${vo.get('question').id}}" id="addcomment"

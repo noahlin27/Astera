@@ -35,7 +35,7 @@ public class FeedController {
         int localUserId = hostHolder.getUser() == null ? 0 : hostHolder.getUser().getId();
         List<Integer> following = new ArrayList<>();
         if (localUserId != 0) {
-            following = followService.getFollowing(localUserId, EntityType.USER.getTypeId(), Integer.MAX_VALUE);
+            following = followService.getFollowing(localUserId, EntityType.USER.getValue(), Integer.MAX_VALUE);
         }
         List<Feed> feeds = feedService.getFeeds(Integer.MAX_VALUE, following, 10);
         request.setAttribute("feeds", feeds);

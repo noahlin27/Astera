@@ -30,9 +30,9 @@ public class FollowHandler implements EventHandler {
         message.setToId(event.getEntityOwnerId());
         message.setCreateTime(new Date());
         User user = userService.getUser(event.getActorId());
-        if (event.getEntityType() == EntityType.QUESTION.getTypeId()) {
+        if (event.getEntityType() == EntityType.QUESTION.getValue()) {
             message.setContent(user.getName() + "关注了你的问题");
-        } else if (event.getEntityType() == EntityType.USER.getTypeId()) {
+        } else if (event.getEntityType() == EntityType.USER.getValue()) {
             message.setContent(user.getName() + "关注了你");
         }
         messageService.addMessage(message);

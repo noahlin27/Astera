@@ -72,11 +72,11 @@ public class QuestionController {
             questionVO.set("followed", false);
         } else {
             questionVO.set("followed", followService.isFollower(hostHolder.getUser().getId(),
-                    EntityType.QUESTION.getTypeId(), questionId));
+                    EntityType.QUESTION.getValue(), questionId));
         }
-        questionVO.set("followerCount", followService.getFollowerCount(EntityType.QUESTION.getTypeId(),
+        questionVO.set("followerCount", followService.getFollowerCount(EntityType.QUESTION.getValue(),
                 questionId));
-        List<Integer> followers = followService.getFollowers(EntityType.QUESTION.getTypeId(), questionId,
+        List<Integer> followers = followService.getFollowers(EntityType.QUESTION.getValue(), questionId,
                 20);
         List<ViewObject> followerInfo = new ArrayList<>();
         for (Integer userId : followers){
@@ -91,7 +91,7 @@ public class QuestionController {
 
         request.setAttribute("questionVO", questionVO);
 
-        List<Comment> comments = commentService.getCommentsByEntity(questionId, EntityType.QUESTION.getTypeId());
+        List<Comment> comments = commentService.getCommentsByEntity(questionId, EntityType.QUESTION.getValue());
         List<ViewObject> vos = new ArrayList<>();
         for (Comment comment : comments) {
             ViewObject commentVO = new ViewObject();
@@ -99,9 +99,9 @@ public class QuestionController {
             if (hostHolder.getUser() == null) {
                 commentVO.set("likeStatus", 0);
             } else {
-                commentVO.set("likeStatus", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.COMMENT.getTypeId(), comment.getId()));
+                commentVO.set("likeStatus", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.COMMENT.getValue(), comment.getId()));
             }
-            commentVO.set("likeCount", likeService.getLikeCount(EntityType.COMMENT.getTypeId(), comment.getId()));
+            commentVO.set("likeCount", likeService.getLikeCount(EntityType.COMMENT.getValue(), comment.getId()));
             commentVO.set("user", userService.getUser(comment.getUserId()));
             vos.add(commentVO);
         }

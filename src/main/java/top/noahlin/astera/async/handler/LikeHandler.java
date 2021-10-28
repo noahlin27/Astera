@@ -29,7 +29,7 @@ public class LikeHandler implements EventHandler {
         message.setToId(event.getEntityOwnerId());
         message.setCreateTime(new Date());
         User user = userService.getUser(event.getActorId());
-        message.setContent(user.getName()+"赞了你的评论"+ event.getExt("questionId"));
+        message.setContent(user.getName() + event.getExt("message"));
         messageService.addMessage(message);
     }
 

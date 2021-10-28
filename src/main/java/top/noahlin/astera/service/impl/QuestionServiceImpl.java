@@ -2,10 +2,13 @@ package top.noahlin.astera.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
+import top.noahlin.astera.common.EntityType;
 import top.noahlin.astera.dao.QuestionDAO;
 import top.noahlin.astera.dao.UserDAO;
+import top.noahlin.astera.model.HostHolder;
 import top.noahlin.astera.model.Question;
 import top.noahlin.astera.model.ViewObject;
+import top.noahlin.astera.service.LikeService;
 import top.noahlin.astera.service.QuestionService;
 import top.noahlin.astera.util.SensitiveFilterUtil;
 
@@ -24,6 +27,12 @@ public class QuestionServiceImpl implements QuestionService {
     @Resource
     SensitiveFilterUtil sensitiveFilterUtil;
 
+    @Resource
+    LikeService likeService;
+
+    @Resource
+    HostHolder hostHolder;
+
     @Override
     public int addQuestion(Question question) {
         insertQuestionFilter(question);
@@ -39,6 +48,12 @@ public class QuestionServiceImpl implements QuestionService {
             selectQuestionFilter(question);
             vo.set("user", userDAO.selectById(question.getUserId()));
             vo.set("question", question);
+            vo.set("likeCount", likeService.getLikeCount(EntityType.QUESTION.getValue(), question.getId()));
+            if (hostHolder.getUser() != null){
+            vo.set("likeStatus", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.QUESTION.getValue(), question.getId()));
+            } else {
+                vo.set("likeStatus", 0);
+            }
             vos.add(vo);
         }
         return vos;

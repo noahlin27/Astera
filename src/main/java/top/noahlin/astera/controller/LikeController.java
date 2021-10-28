@@ -37,36 +37,35 @@ public class LikeController {
 
     @PostMapping("/likeQuestion")
     @ResponseBody
-    public String likeQuestion(@RequestParam("QuestionId") int QuestionId){
+    public String likeQuestion(@RequestParam("questionId") int questionId){
         if(hostHolder.getUser()==null){
             return JsonUtil.getJSONString(999);
         }
 
-        Question question = questionService.getQuestion(QuestionId);
+        Question question = questionService.getQuestion(questionId);
         eventProducer.fireEvent(new Event(EventType.LIKE).
                 setActorId(hostHolder.getUser().getId()).
-                setEntityType(EventType.LIKE.getValue()).
-                setEntityId(QuestionId).
-                setExt("questionId", String.valueOf(question)).
+                setEntityType(EntityType.QUESTION.getValue()).
+                setEntityId(questionId).setExt("message", "赞了你的问题").
                 setEntityOwnerId(question.getUserId()));
 
-        long likeCount = likeService.like((hostHolder.getUser().getId()), EntityType.COMMENT.getTypeId(), QuestionId);
+        long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.QUESTION.getValue(), questionId);
         return JsonUtil.getJSONString(0, String.valueOf(likeCount));
     }
 
     @PostMapping("/dislikeQuestion")
     @ResponseBody
-    public String dislikeQuestion(@RequestParam("QuestionId") int QuestionId){
+    public String dislikeQuestion(@RequestParam("questionId") int questionId){
         if(hostHolder.getUser()==null){
             return JsonUtil.getJSONString(999);
         }
-        long dislikeCount = likeService.dislike((hostHolder.getUser().getId()), EntityType.COMMENT.getTypeId(), QuestionId);
+        long dislikeCount = likeService.dislike(hostHolder.getUser().getId(), EntityType.QUESTION.getValue(), questionId);
         return JsonUtil.getJSONString(0, String.valueOf(dislikeCount));
     }
 
     @PostMapping("/likeComment")
     @ResponseBody
-    public String likeComment(@RequestParam("CommentId") int commentId){
+    public String likeComment(@RequestParam("commentId") int commentId){
         if(hostHolder.getUser()==null){
             return JsonUtil.getJSONString(999);
         }
@@ -74,12 +73,12 @@ public class LikeController {
         Comment comment = commentService.getComment(commentId);
         eventProducer.fireEvent(new Event(EventType.LIKE).
                 setActorId(hostHolder.getUser().getId()).
-                setEntityType(EntityType.COMMENT.getTypeId()).
-                setEntityId(commentId).
+                setEntityType(EntityType.COMMENT.getValue()).
+                setEntityId(commentId).setExt("message", "赞了你的评论").
                 setExt("questionId", String.valueOf(comment.getEntityId())).
                 setEntityOwnerId(comment.getUserId()));
 
-        long likeCount = likeService.like((hostHolder.getUser().getId()), EntityType.COMMENT.getTypeId(), commentId);
+        long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.COMMENT.getValue(), commentId);
         return JsonUtil.getJSONString(0, String.valueOf(likeCount));
     }
 
@@ -89,7 +88,7 @@ public class LikeController {
         if(hostHolder.getUser()==null){
             return JsonUtil.getJSONString(999);
         }
-        long dislikeCount = likeService.dislike((hostHolder.getUser().getId()), EntityType.COMMENT.getTypeId(), commentId);
+        long dislikeCount = likeService.dislike(hostHolder.getUser().getId(), EntityType.COMMENT.getValue(), commentId);
         return JsonUtil.getJSONString(0, String.valueOf(dislikeCount));
     }
 }

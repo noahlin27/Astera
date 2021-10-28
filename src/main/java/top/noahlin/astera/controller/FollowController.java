@@ -50,10 +50,10 @@ public class FollowController {
             return JsonUtil.getJSONString(999);
         }
 
-        boolean ret = followService.follow(hostHolder.getUser().getId(), EntityType.USER.getTypeId(), userId);
+        boolean ret = followService.follow(hostHolder.getUser().getId(), EntityType.USER.getValue(), userId);
         eventProducer.fireEvent(new Event(EventType.FOLLOW).
                 setActorId(hostHolder.getUser().getId()).
-                setEntityType(EntityType.USER.getTypeId()).
+                setEntityType(EntityType.USER.getValue()).
                 setEntityId(userId).
                 setEntityOwnerId(userId));
         return JsonUtil.getJSONString(ret ? 0 : 1, String.valueOf(followService.getFollowingCount(
@@ -67,7 +67,7 @@ public class FollowController {
             return JsonUtil.getJSONString(999);
         }
 
-        boolean ret = followService.unfollow(hostHolder.getUser().getId(), EntityType.USER.getTypeId(), userId);
+        boolean ret = followService.unfollow(hostHolder.getUser().getId(), EntityType.USER.getValue(), userId);
         return JsonUtil.getJSONString(ret ? 0 : 1, String.valueOf(followService.getFollowingCount(
                 EventType.FOLLOW.getValue(), hostHolder.getUser().getId())));
     }
@@ -84,10 +84,10 @@ public class FollowController {
             return JsonUtil.getJSONString(1, "问题不存在");
         }
 
-        boolean ret = followService.follow(hostHolder.getUser().getId(), EntityType.QUESTION.getTypeId(), questionId);
+        boolean ret = followService.follow(hostHolder.getUser().getId(), EntityType.QUESTION.getValue(), questionId);
         eventProducer.fireEvent(new Event(EventType.FOLLOW).
                 setActorId(hostHolder.getUser().getId()).
-                setEntityType(EntityType.QUESTION.getTypeId()).
+                setEntityType(EntityType.QUESTION.getValue()).
                 setEntityId(questionId).
                 setEntityOwnerId(questionId));
 
@@ -95,7 +95,7 @@ public class FollowController {
         info.put("headUrl", hostHolder.getUser().getHeadUrl());
         info.put("name", hostHolder.getUser().getName());
         info.put("id", hostHolder.getUser().getId());
-        info.put("count", followService.getFollowingCount(EntityType.QUESTION.getTypeId(), questionId));
+        info.put("count", followService.getFollowingCount(EntityType.QUESTION.getValue(), questionId));
         return JsonUtil.getJSONString(ret ? 0 : 1, info);
     }
 
@@ -111,10 +111,10 @@ public class FollowController {
             return JsonUtil.getJSONString(1, "问题不存在");
         }
 
-        boolean ret = followService.unfollow(hostHolder.getUser().getId(), EntityType.QUESTION.getTypeId(), questionId);
+        boolean ret = followService.unfollow(hostHolder.getUser().getId(), EntityType.QUESTION.getValue(), questionId);
         Map<String, Object> info = new HashMap<>();
         info.put("id", hostHolder.getUser().getId());
-        info.put("count", followService.getFollowingCount(EntityType.QUESTION.getTypeId(), questionId));
+        info.put("count", followService.getFollowingCount(EntityType.QUESTION.getValue(), questionId));
         return JsonUtil.getJSONString(ret ? 0 : 1, info);
     }
 
@@ -122,7 +122,7 @@ public class FollowController {
     public String followers(@PathVariable("userName") String userName, HttpServletRequest request) {
         int curUserId = userService.getUser(userName).getId();
         ViewObject userProfile = new ViewObject();
-        List<Integer> followersIds = followService.getFollowers(EntityType.USER.getTypeId(), curUserId,
+        List<Integer> followersIds = followService.getFollowers(EntityType.USER.getValue(), curUserId,
                 10);
         if(hostHolder.getUser() != null){
             int localUserId = hostHolder.getUser().getId();
@@ -139,7 +139,7 @@ public class FollowController {
     public String following(@PathVariable("userName") String userName, HttpServletRequest request) {
         int curUserId = userService.getUser(userName).getId();
         ViewObject userProfile = new ViewObject();
-        List<Integer> followingIds = followService.getFollowing(EntityType.USER.getTypeId(), curUserId,
+        List<Integer> followingIds = followService.getFollowing(EntityType.USER.getValue(), curUserId,
                 10);
         if(hostHolder.getUser() != null){
             int localUserId = hostHolder.getUser().getId();
@@ -155,11 +155,11 @@ public class FollowController {
     private ViewObject getUserProfile(int localUserId, int curUserId){
         ViewObject userProfile = new ViewObject();
         userProfile.set("user", userService.getUser(curUserId));
-        userProfile.set("followerCount", followService.getFollowerCount(EntityType.USER.getTypeId(), curUserId));
-        userProfile.set("followingCount", followService.getFollowingCount(EntityType.USER.getTypeId(), curUserId));
+        userProfile.set("followerCount", followService.getFollowerCount(EntityType.USER.getValue(), curUserId));
+        userProfile.set("followingCount", followService.getFollowingCount(EntityType.USER.getValue(), curUserId));
         userProfile.set("commentCount", commentService.getCommentCount(curUserId));
         if (localUserId != 0) {
-            userProfile.set("followed", followService.isFollower(localUserId, EntityType.USER.getTypeId(), curUserId));
+            userProfile.set("followed", followService.isFollower(localUserId, EntityType.USER.getValue(), curUserId));
         } else {
             userProfile.set("followed", false);
         }

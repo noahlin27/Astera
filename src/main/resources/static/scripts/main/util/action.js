@@ -1,8 +1,10 @@
 (function (window, undefined) {
     var Action = Base.createClass('main.util.Action');
     $.extend(Action, {
-        like: fLike,
-        dislike: fDislike,
+        likeComment: fLikeComment,
+        dislikeComment: fDislikeComment,
+        likeQuestion: fLikeQuestion,
+        dislikeQuestion: fDislikeQuestion,
         followUser: fFollowUser,
         unFollowUser: fUnFollowUser,
         followQuestion: fFollowQuestion,
@@ -18,10 +20,10 @@
      *  @param  {Function} oConf.error 失败回调
      *  @param  {Function} oConf.always 操作的回调
      */
-    function fLike(oConf) {
+    function fLikeComment(oConf) {
         var that = this;
         that.post({
-            url: '/like',
+            url: '/likeComment',
             data: {commentId: oConf.commentId},
             call: oConf.call,
             error: oConf.error,
@@ -38,11 +40,51 @@
      *  @param  {Function} oConf.error 失败回调
      *  @param  {Function} oConf.always 操作的回调
      */
-    function fDislike(oConf) {
+    function fDislikeComment(oConf) {
         var that = this;
         that.post({
-            url: '/dislike',
+            url: '/dislikeComment',
             data: {commentId: oConf.commentId},
+            call: oConf.call,
+            error: oConf.error,
+            always: oConf.always
+        });
+        location.reload();
+    }
+
+    /**
+     * 喜欢
+     * @param   {Object} oConf
+     *  @param  {String} oConf.questionId 对象id
+     *  @param  {Function} oConf.call 成功回调
+     *  @param  {Function} oConf.error 失败回调
+     *  @param  {Function} oConf.always 操作的回调
+     */
+    function fLikeQuestion(oConf) {
+        var that = this;
+        that.post({
+            url: '/likeQuestion',
+            data: {questionId: oConf.questionId},
+            call: oConf.call,
+            error: oConf.error,
+            always: oConf.always
+        });
+        location.reload();
+    }
+
+    /**
+     * 不喜欢
+     * @param   {Object} oConf
+     *  @param  {String} oConf.questionId 对象id
+     *  @param  {Function} oConf.call 成功回调
+     *  @param  {Function} oConf.error 失败回调
+     *  @param  {Function} oConf.always 操作的回调
+     */
+    function fDislikeQuestion(oConf) {
+        var that = this;
+        that.post({
+            url: '/dislikeQuestion',
+            data: {questionId: oConf.questionId},
             call: oConf.call,
             error: oConf.error,
             always: oConf.always

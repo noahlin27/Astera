@@ -44,12 +44,12 @@ public class IndexController {
         User user = userService.getUser(username);
         ViewObject vo = new ViewObject();
         vo.set("user", userService.getUser(username));
-        vo.set("commentCount", commentService.getCommentCount(EntityType.USER.getTypeId(), user.getId()));
-        vo.set("followerCount", followService.getFollowerCount(EntityType.USER.getTypeId(), user.getId()));
-        vo.set("followingCount", followService.getFollowingCount(EntityType.USER.getTypeId(), user.getId()));
+        vo.set("commentCount", commentService.getCommentCount(EntityType.USER.getValue(), user.getId()));
+        vo.set("followerCount", followService.getFollowerCount(EntityType.USER.getValue(), user.getId()));
+        vo.set("followingCount", followService.getFollowingCount(EntityType.USER.getValue(), user.getId()));
         if (hostHolder.getUser() != null) {
             vo.set("followed", followService.isFollower(hostHolder.getUser().getId(),
-                    EntityType.USER.getTypeId(), user.getId()));
+                    EntityType.USER.getValue(), user.getId()));
         } else {
             vo.set("followed", false);
         }
