@@ -9,5 +9,4 @@ public interface LoginService {
 
     void logout(String ticket);
 
-    String addTicket(int userId);
 }

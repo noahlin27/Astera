@@ -42,7 +42,7 @@ public class LoginServiceImpl implements LoginService {
         Random random = new Random();
         user.setName(username);
         user.setSalt(UUID.randomUUID().toString().substring(0, 5));
-        user.setHeadUrl(String.format("https://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
+        user.setHeadUrl(String.format("/images/img/%d.png", random.nextInt(36)));
         user.setPassword(MD5Util.Encode(password + user.getSalt(), "utf-8"));
         userDAO.insert(user);
         map.put("success", "注册成功! 请登录");
@@ -72,7 +72,6 @@ public class LoginServiceImpl implements LoginService {
 
         String ticket = addTicket((user.getId()));
         map.put("ticket", ticket);
-//        map.put("success", "登录成功! 即将跳转...");
         return map;
     }
 
@@ -81,8 +80,7 @@ public class LoginServiceImpl implements LoginService {
         loginTicketDAO.updateStatus(ticket, 1);
     }
 
-    @Override
-    public String addTicket(int userId) {
+    private String addTicket(int userId) {
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(userId);
         Date now = new Date();

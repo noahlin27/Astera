@@ -18,14 +18,14 @@ public class LogAspect {
         StringBuilder sb = new StringBuilder();
         for (Object arg : joinPoint.getArgs()) {
             if (arg != null) {
-                sb.append("arg:" + arg.toString() + "|");
+                sb.append("arg:").append(arg).append("|");
             }
         }
-        logger.info("before method:" + sb.toString());
+        logger.info("before method: " + sb);
     }
 
     @After("execution(* top.noahlin.astera.controller.IndexController.*(..))")
-    public void afterMethod(){
-        logger.info("after method"+new Date());
+    public void afterMethod() {
+        logger.info("after method: " + new Date());
     }
 }

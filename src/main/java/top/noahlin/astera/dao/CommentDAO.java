@@ -19,14 +19,14 @@ public interface CommentDAO {
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
     Comment selectById(int id);
 
-    @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where entity_id=#{entityId} and entity_type=#{entityType} order by create_time desc"})
-    List<Comment> selectCommentsByEntity(@Param("entityId") int entityId, @Param("entityType") int entityType);
+    @Select({"select", SELECT_FIELDS, "from", TABLE_NAME, "where entity_type=#{entityType} and entity_id=#{entityId} order by create_time desc"})
+    List<Comment> selectCommentsByEntity(@Param("entityType") int entityType, @Param("entityId") int entityId);
 
     @Select({"select count(id) from", TABLE_NAME, "where entity_type=#{entityType} and entity_id=#{entityId}"})
     int selectCount(@Param("entityType") int entityType, @Param("entityId") int entityId);
 
     @Select({"select count(id) from", TABLE_NAME, "where user_id=#{userId}"})
-    int selectUserCommentCount(@Param("userId") int userId);
+    int selectCountByUserId(@Param("userId") int userId);
 
     @Update({"update comment set status=#{status} where id=#{id}"})
     int updateStatus(@Param("id") int id, @Param("status") int status);

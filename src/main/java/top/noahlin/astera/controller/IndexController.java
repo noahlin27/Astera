@@ -1,6 +1,8 @@
+
 package top.noahlin.astera.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +35,7 @@ public class IndexController {
     @Resource
     HostHolder hostHolder;
 
-    @RequestMapping(value = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping({"/", "/index"})
     public String index(HttpServletRequest request) {
         request.setAttribute("questionListVO", questionService.getQuestionList(0));
         return "index";

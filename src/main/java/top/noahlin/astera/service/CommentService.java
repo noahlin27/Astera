@@ -7,7 +7,7 @@ import java.util.List;
 public interface CommentService {
     int addComment(Comment comment);
 
-    List<Comment> getCommentsByEntity(int entityId, int entityType);
+    List<Comment> getComments(int entityType, int entityId);
 
     Comment getComment(int id);
 

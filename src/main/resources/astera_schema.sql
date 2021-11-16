@@ -22,13 +22,13 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `user_id` int(11) NOT NULL,
-  `entity_id` int(11) NOT NULL,
   `entity_type` int(11) NOT NULL,
+  `entity_id` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `entity_index` (`entity_id`,`entity_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `login_ticket` (
   `status` int(11) DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ticket_UNIQUE` (`ticket`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`id`),
   KEY `conversation_index` (`conversation_id`),
   KEY `create_time` (`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `comment_count` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `date_index` (`create_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_deleted` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 
 -- 数据导出被取消选择。
 

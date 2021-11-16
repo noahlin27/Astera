@@ -1,7 +1,6 @@
 package top.noahlin.astera.async.handler;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Component;
 import top.noahlin.astera.async.Event;
 import top.noahlin.astera.async.EventHandler;

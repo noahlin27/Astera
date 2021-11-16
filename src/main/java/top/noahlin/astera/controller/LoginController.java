@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Controller
-public class loginController {
+public class LoginController {
     @Resource
     LoginService loginService;
 
@@ -68,7 +68,7 @@ public class loginController {
 
                 eventProducer.fireEvent(new Event(EventType.LOGIN).
                         setExt("username", username).
-                        setExt("email", "noahlin27@qq.com"));
+                        setExt("email", "example@qq.com"));
 
                 if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next;

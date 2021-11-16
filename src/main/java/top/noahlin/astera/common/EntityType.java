@@ -5,7 +5,7 @@ public enum EntityType {
     QUESTION(2),
     COMMENT(3);
 
-    private int value;
+    private final int value;
 
     EntityType(int value) {
         this.value = value;

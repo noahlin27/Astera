@@ -25,14 +25,15 @@ public class SensitiveFilterUtil implements InitializingBean {
         }
 
         StringBuilder result = new StringBuilder();
-        String replacement = "***";
+        String replacement = "*";
         TrieNode temp = rootNode;
-        int begin = 0;
-        int position = 0;
+        int begin = 0;      //词语的开头
+        int position = 0;       //当前比较的字符
 
         while (position < text.length()) {
             char c = text.charAt(position);
-            if (isSymbol(c)) {
+
+            if (isSymbol(c)) {      //跳过空格等
                 if (temp == rootNode) {
                     result.append(c);
                     ++begin;
@@ -47,7 +48,7 @@ public class SensitiveFilterUtil implements InitializingBean {
                 position = ++begin;
                 temp = rootNode;
             } else if (temp.isEnd()) {
-                result.append(replacement.repeat(position - begin));
+                result.append(replacement.repeat(position - begin + 1));
                 begin = ++position;
             } else {
                 ++position;
@@ -74,11 +75,11 @@ public class SensitiveFilterUtil implements InitializingBean {
             BufferedReader bufferedReader = new BufferedReader(reader);
             String lineText;
             while ((lineText=bufferedReader.readLine()) != null) {
-                addKeyWord(lineText.trim());        // 删除字符串两端的空白
+                insert(lineText.trim());        // 删除字符串两端的空白
             }
             reader.close();
         } catch (Exception e) {
-            logger.error("创建敏感词字典失败 " + e.getMessage());
+            logger.error("构建字典树失败 " + e.getMessage());
         }
     }
 
@@ -95,7 +96,7 @@ public class SensitiveFilterUtil implements InitializingBean {
      * 将字符串添加到字典树
      * @param lineText
      */
-    public void addKeyWord(String lineText) {
+    private void insert(String lineText) {
         TrieNode temp = rootNode;
 
         for (int i = 0; i < lineText.length(); ++i) {
@@ -111,19 +112,19 @@ public class SensitiveFilterUtil implements InitializingBean {
         temp.setEnd();
     }
 
-    static class TrieNode {
+    private static class TrieNode {
         /** 是否为关键词结尾 */
         boolean end = false;
 
-        /** key为节点的字符，value为节点的子节点 */
-        final Map<Character, TrieNode> subNodeMap = new HashMap<>();
+        /** key为子节点的字符，value为对应的子节点 */
+        final Map<Character, TrieNode> subNode = new HashMap<>();
 
         void addSubNode(Character key, TrieNode node) {
-            subNodeMap.put(key, node);
+            subNode.put(key, node);
         }
 
         TrieNode getSubNode(Character key) {
-            return subNodeMap.get(key);
+            return subNode.get(key);
         }
 
         boolean isEnd() {

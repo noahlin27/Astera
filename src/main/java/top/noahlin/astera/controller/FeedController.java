@@ -1,6 +1,5 @@
 package top.noahlin.astera.controller;
 
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import top.noahlin.astera.common.EntityType;

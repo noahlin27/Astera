@@ -42,7 +42,7 @@ public class DatabaseCRUDTests {
         Random random = new Random();
         for (int i = 0; i < 10; ++i) {
             User user = new User();
-            user.setHeadUrl(String.format("https://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
+            user.setHeadUrl(String.format("/images/img/%d.png", random.nextInt(1000)));
             user.setName(String.format("USER%d", i));
             user.setPassword("");
             user.setSalt("");
@@ -120,5 +120,13 @@ public class DatabaseCRUDTests {
         comment.setCreateTime(date);
         comment.setStatus(0);
         System.out.println(commentDAO.insert(comment));
+    }
+
+    @Test
+    public void updateHeadUrl(){
+        Random random = new Random();
+        for (int i=0; i<15; ++i){
+            userDAO.updateHeadUrl(String.format("/images/img/%d.png", random.nextInt(36)), i+1);
+        }
     }
 }

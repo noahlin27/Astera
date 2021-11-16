@@ -4,8 +4,8 @@ public enum DefaultUser {
     ANONYMOUS_USER(1, "anonymousUser"),
     SYSTEM_USER(2, "systemUser");
 
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     DefaultUser(int id, String name) {
         this.id = id;

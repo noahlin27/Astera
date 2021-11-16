@@ -91,7 +91,7 @@ public class QuestionController {
 
         request.setAttribute("questionVO", questionVO);
 
-        List<Comment> comments = commentService.getCommentsByEntity(questionId, EntityType.QUESTION.getValue());
+        List<Comment> comments = commentService.getComments(EntityType.QUESTION.getValue(), questionId);
         List<ViewObject> vos = new ArrayList<>();
         for (Comment comment : comments) {
             ViewObject commentVO = new ViewObject();

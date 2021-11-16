@@ -25,8 +25,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getCommentsByEntity(int entityId, int entityType) {
-        List<Comment> comments = commentDAO.selectCommentsByEntity(entityId, entityType);
+    public List<Comment> getComments(int entityType, int entityId) {
+        List<Comment> comments = commentDAO.selectCommentsByEntity(entityType, entityId);
         for (Comment comment:comments){
             comment.setContent(sensitiveFilterUtil.filter(comment.getContent()));
         }
@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public int getCommentCount(int userId){
-        return commentDAO.selectUserCommentCount(userId);
+        return commentDAO.selectCountByUserId(userId);
     }
 
     @Override
